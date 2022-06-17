@@ -44,5 +44,5 @@ Java 기반의 웹 프레임워크 <b>Spring Boot</b>를 사용합니다.
 <br><br>
 
 ## <b>4. 테이블 구조</b>
-<img width="399" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
+<img width="400" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
 
