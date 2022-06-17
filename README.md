@@ -34,7 +34,7 @@
 <br>
 
 + Front-end  
-HTML, CSS, Javascript를 사용합니다.
+<b>HTML, CSS, Javascript</b>를 사용합니다.
 
 <br>
 
