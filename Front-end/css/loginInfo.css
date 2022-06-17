@@ -69,8 +69,8 @@ body {
 .join_menu li {
   font-weight: bold;
   font-size: 14px;
-  padding: 0px 20px 0px 20px;
   list-style: none;
+  padding: 0px 20px 0px 20px;
   float: left;
 }
 
