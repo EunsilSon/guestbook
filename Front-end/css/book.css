@@ -62,16 +62,18 @@ body {
 #announce {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 10px 20px 40px 20px;
 }
 
 #announce p {
   font-size: 14px;
   color: gray;
-  margin: 5px 20px 0px 20px;
+  margin-left: 10px;
 }
 
 #announce img {
-  width: 50px;
+  width: 55px;
 }
 
 .sign_btn {
@@ -90,3 +92,38 @@ body {
   font-size: 16px;
 }
 
+.card_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  width: 550px;
+  height: 100px;
+  margin-bottom: 20px;
+  padding: 10px 30px 10px 30px;
+  border: 0.5px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px grey;
+  background-color: white;
+}
+
+.card_list .card .card_info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_writer {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card_post_date {
+  font-size: 15px;
+  color: gray;
+}
+
+.card_content {
+  margin-top: 5px;
+}
