@@ -10,6 +10,8 @@ html {
 body {
   background-color: #FFFAEB;
   height: 100%;
+  display: flex;
+  flex-flow: column;
 }
 
 .box_title {
@@ -26,6 +28,7 @@ body {
 .main_box {
   display: flex;
   flex-direction: column;
+  flex: 1;
   margin: 30px 50px 30px 50px;
 }
 
@@ -83,13 +86,36 @@ body {
 
 .sign_btn button {
   width: 630px;
-  height: 40px;
+  height: 50px;
   margin: 30px 0px 30px 0px;
   border: 0px;
   border-radius: 5px;
   background-color: #44546A;
   color: #FFFAEB;
   font-size: 16px;
+}
+
+.btn_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn_box button {
+  width: 190px;
+  height: 50px;
+  margin: 30px 5px 30px 5px;
+  border: 2px solid #44546A;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: #FFFAEB;
+  color: #44546A;
+}
+
+.btn_box button:hover {
+  background-color: #44546A;
+  color: #FFFAEB;
 }
 
 .card_list {
@@ -99,7 +125,7 @@ body {
 }
 
 .card {
-  width: 550px;
+  width: 500px;
   height: 100px;
   margin-bottom: 20px;
   padding: 10px 30px 10px 30px;
@@ -116,7 +142,7 @@ body {
 
 .card_writer {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .card_post_date {
@@ -126,4 +152,38 @@ body {
 
 .card_content {
   margin-top: 5px;
+}
+
+.page {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  color: gray;
+}
+
+.page img {
+  height: 20px;
+  margin: 0px 20px 0px 20px;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0px 20px 0px;
+}
+
+.search input {
+  width: 400px;
+  height: 27px;
+  text-align: center;
+  border: 0.5px solid gray;
+  border-radius: 20px;
+  background-color: #EDEDED;
+}
+.search img{
+  height: 20px;
+  position: relative;
+  top: 4px;
+  right: 33px;
 }
