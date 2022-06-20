@@ -8,68 +8,65 @@
     <link rel="stylesheet" href="../css/book.css">
   </head>
   <body>
-    <div>
+    <header class="book_title">
+      GUEST BOOK
+    </header>
 
-      <div class="box_title">
-        <b>GUEST BOOK</b>
-      </div>
-
-      <div class="main_box">
-        <div class="user_profile">
-          <div class="profile_img">
-            <img src="../img/profile.png" />
-          </div>
-
-          <div class="user_profile_info">
-
-           <p id="user_name">eunsil</p>
-
-            <ul id="card_count">
-              <li>
-                카드
-                <b>0</b>
-              </li>
-              <li>
-                확인 완료
-                <b>0</b>
-              </li>
-              <li>
-                확인 전
-                <b>0</b>
-              </li>
-            </ul>
-
-            <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
-
-          </div>
+    <article class="main_box">
+      <section class="user_profile">
+        <div class="profile_img">
+          <img src="../img/profile.png" />
         </div>
 
-        <div class="sign_btn">
-          <button>Sign In / Sing Up</button>
-        </div>
+        <div class="user_profile_info">
 
-        <div id="announce">
-          <img src="../img/lock.png">
-          <p>로그아웃 상태입니다.<br>카드를 남기시려면 로그인을 해주세요.</p>
-        </div>
+          <p id="user_name">eunsil</p>
 
-        <div class="card_list">
-          <div class="card">
-            <div class="card_info">
-              <p class="card_writer">name</p>
-              <p class="card_post_date">yyyy. mm. dd</p>
-            </div>
-            <p class="card_content">content</p>
-          </div>
-          <div class="card">
-            <div class="card_info">
-              <p class="card_writer">name</p>
-              <p class="card_post_date">yyyy. mm. dd</p>
-            </div>
-            <p class="card_content">content</p>
-          </div>
+          <ul id="card_count">
+            <li>
+              카드
+              <b>0</b>
+            </li>
+            <li>
+              확인 완료
+              <b>0</b>
+            </li>
+            <li>
+              확인 전
+              <b>0</b>
+            </li>
+          </ul>
+
+          <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
+
         </div>
-      </div>
-    </div>
+      </section>
+
+      <nav class="sign_btn">
+        <button>Sign In / Sing Up</button>
+      </nav>
+
+      <section id="announce">
+        <img src="../img/lock.png">
+        <p>로그아웃 상태입니다.<br>카드를 남기시려면 로그인을 해주세요.</p>
+      </section>
+
+      <section class="card_list">
+        <div class="card">
+          <div class="card_info">
+            <p class="card_writer">name</p>
+            <p class="card_post_date">yyyy. mm. dd</p>
+          </div>
+          <p class="card_content">content</p>
+        </div>
+        <div class="card">
+          <div class="card_info">
+            <p class="card_writer">name</p>
+            <p class="card_post_date">yyyy. mm. dd</p>
+          </div>
+          <p class="card_content">content</p>
+        </div>
+      </section>
+    </article>
   </body>
 </html>
