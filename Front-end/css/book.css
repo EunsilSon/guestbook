@@ -32,7 +32,6 @@ article {
 }
 
 .main_box {
-  display: flex;
   flex-direction: column;
   flex: 1;
   align-items: center;
@@ -333,9 +332,7 @@ article {
 
 footer {
   margin: 70px 0px 50px 0px;
-  position: relative;
   right: 220px;
-  display: flex;
 }
 
 footer img {

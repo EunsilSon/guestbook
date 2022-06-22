@@ -5,18 +5,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Eunsil's GuestBook</title>
-    <link rel="stylesheet" href="../css/loginInfo.css">
+    <link rel="stylesheet" href="../css/login.css">
   </head>
   <body>
     <header class="book_title">
         Welcome to<br><b>Eunsil's Guest Book !</b>
     </header>
     <article class="main_box">
-      <section class="info">
-        <input type="id" name="userId" placeholder="ID">
-        <input type="password" name="userPw" placeholder="Password">
-        <button>SIGN IN</button>
-      </section>
+        <form class="info" name="login" method="POST" action="book_all_cards.html">
+          <input type="id" name="userId" placeholder="ID">
+          <input type="password" name="userPw" placeholder="Password">
+          
+          <button type="submit" value="submit">SIGN IN</button>
+        </form>
 
       <nav class="join_menu">
         <li><a href="">ID 찾기</a></li>
