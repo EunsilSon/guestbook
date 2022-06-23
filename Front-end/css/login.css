@@ -69,13 +69,11 @@ body {
 }
 
 .join_menu li {
-  font-weight: bold;
-  font-size: 14px;
-  list-style: none;
   padding: 0px 20px 0px 20px;
   float: left;
-}
-
-.join_menu li a {
+  list-style: none;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: underline;
   color: #FFFAEB;
 }
