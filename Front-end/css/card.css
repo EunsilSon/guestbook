@@ -1,0 +1,121 @@
+#card_count {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+#card_count li {
+  margin-right: 40px;
+}
+
+.card_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  width: 500px;
+  height: 100px;
+  margin-bottom: 20px;
+  padding: 10px 30px 10px 30px;
+  border: 0.5px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px grey;
+  background-color: white;
+}
+
+.card_detail {
+  width: 500px;
+  height: 300px;
+  margin-bottom: 20px;
+  padding: 15px 30px 15px 30px;
+  border: 0.5px solid lightgray;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px grey;
+  background-color: white;
+}
+
+.card_info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_writer {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.card_post_date {
+  font-size: 15px;
+  color: gray;
+}
+
+.card_list .card_content {
+  margin: 10px;
+}
+
+.card_detail .card_content {
+  margin: 20px;
+}
+
+.card_status {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 15px;
+}
+
+.card_list .card button {
+  width: 70px;
+  height: 30px;
+  margin-left: 10px;
+  font-size: 14px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #44546A;
+  color: #FFFAEB;
+}
+
+.card_write {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.card_write textarea {
+  width: 500px;
+  height: 300px;
+  resize: none;
+  border: 0.5px solid lightgray;
+  background-color: white;
+}
+
+.card_write textarea::placeholder {
+  padding: 20px 0px 0px 30px;
+  font-size: 16px;
+}
+
+.card_write button {
+  height: 50px;
+  width: 80px;
+  align-self: center;
+  margin-top: -50px;
+  margin-left: 420px;
+  font-weight: bold;
+  font-size: 17px;
+  border: 0px;
+  background-color: #44546A;
+  color: white;
+}
+
+#card_edit_btn {
+  height: 35px;
+  width: 65px;
+  font-weight: bold;
+  font-size: 15px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #44546A;
+  color: white;
+}
