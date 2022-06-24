@@ -1,14 +1,8 @@
-const form = document.getElementById('form');
 const id = document.getElementById('user_id');
 const pw = document.getElementById('user_pw');
-const sign_btn = document.getElementById('sign_in');
-
-sign_btn.addEventListener('click', (e) => signIn(e))
 
 // 로그인
-function signIn(e) {
-  e.preventDefault();
-
+function signIn() {
   if (checkInput(id, pw)) {
     id.value = null;
     
@@ -34,7 +28,7 @@ function signIn(e) {
     })
     */
 
-    form.submit();
+    location.href = "all_cards.html";
   }
 
 }

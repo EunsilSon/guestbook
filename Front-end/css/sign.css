@@ -61,6 +61,7 @@ body {
   font-size: 15px;
   color: #44546A;
   background-color: #FFFAEB;
+  cursor:pointer;
 }
 
 .sub_menu {
@@ -76,4 +77,5 @@ body {
   font-size: 14px;
   text-decoration: underline;
   color: #FFFAEB;
+  cursor:pointer;
 }

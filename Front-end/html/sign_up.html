@@ -12,12 +12,14 @@
       SIGN UP
     </header>
     <article class="main_box">
-      <section class="info">
-        <input type="id" name="userId" placeholder="ID">
-        <input type="text" name="name" placeholder="Name">
-        <input type="password" name="userPw" placeholder="Password">
-        <input type="text" name="phoneNumber" placeholder="Phone Number">
-        <button>COMPLETE</button> <!--onClick 시 sign up 함수로 이동-->
+      <section>
+        <form id="form" class="info" method="POST" action="sign_in/html" onsubmit="return false">
+          <input id="user_id" type="id" placeholder="ID" required>
+          <input id="user_name" type="text" placeholder="Name" required>
+          <input id="user_pw" type="password" placeholder="Password" required>
+          <input id="phone_number" type="text" placeholder="Phone Number" required>
+          <button id="sign_up" type="button">COMPLETE</button>
+        </form>          
       </section>
     </article>
   </body>
