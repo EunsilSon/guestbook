@@ -96,21 +96,28 @@ article {
   justify-content: center;
 }
 
-.btn_box button {
+.book_btn_focus {
   width: 190px;
   height: 50px;
   margin: 30px 5px 30px 5px;
-  border: 2px solid #44546A;
   border-radius: 5px;
   font-weight: bold;
   font-size: 15px;
-  background-color: #FFFAEB;
-  color: #44546A;
+  border: 2px solid #44546A;
+  background-color: #44546A;
+  color: white;
 }
 
-.btn_box button:hover {
-  background-color: #44546A;
-  color: #FFFAEB;
+.book_btn {
+  width: 190px;
+  height: 50px;
+  margin: 30px 5px 30px 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  border: 2px solid #44546A;
+  background-color: #FFFAEB;
+  color: #44546A;
 }
 
 .page {
