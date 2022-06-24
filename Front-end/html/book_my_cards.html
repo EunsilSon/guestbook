@@ -44,20 +44,20 @@
         </section>
 
         <nav class="btn_box">
-          <button>모든 카드</button>
-          <button>내가 쓴 카드</button>
-          <button>카드 작성</button>
+          <button onclick="location.href='all_cards.html'">모든 카드</button>
+          <button onclick="location.href='my_cards.html'">내가 쓴 카드</button>
+          <button onclick="location.href='card_write.html'">카드 작성</button>
         </nav>
 
         <section class="card_list">
-          <div class="card">
+          <div class="card" onclick="location.href='card_detail.html'">
             <div class="card_info">
               <p class="card_writer">name</p>
               <p class="card_post_date">yyyy. mm. dd</p>
             </div>
             <p class="card_content">content</p>
             <div class="card_status">
-              <button>수정</button>
+              <button onclick="location.href='card_edit.html'">수정</button>
               <button>삭제</button>
             </div>
           </div>

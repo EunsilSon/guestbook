@@ -63,12 +63,12 @@ body {
   background-color: #FFFAEB;
 }
 
-.join_menu {
+.sub_menu {
   display: flex;
   justify-content: center;
 }
 
-.join_menu li {
+.sub_menu li {
   padding: 0px 20px 0px 20px;
   float: left;
   list-style: none;
