@@ -45,7 +45,7 @@ body {
   background-color: white;
 }
 
-.info > input::placeholder {
+.info > form input::placeholder {
   padding-left: 40px;
   font-size: 15px;
 }

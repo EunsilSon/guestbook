@@ -13,9 +13,11 @@
     </header>
     <article class="main_box">
       <section class="info">
-        <input id="user_id" type="id" placeholder="ID">
-        <input id="user_pw" type="password" placeholder="Password">
-        <button id="sign_in" type="button" onClick="signIn();">SIGN IN</button>
+        <form id="form" method="GET" action="all_cards.html" submit="return false">
+          <input id="user_id" type="id" name="user_id" placeholder="ID"> 
+          <input id="user_pw" type="password" placeholder="Password">
+          <button id="sign_in" type="button" onClick="signIn();">SIGN IN</button>
+        </form>
       </section>
 
       <nav class="sub_menu">
