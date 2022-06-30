@@ -57,7 +57,11 @@
 }
 
 .card_detail .card_content {
-  margin: 20px;
+  width: 500px;
+  height: 250px;
+  margin-top: 20px;
+  border: 0px;
+  resize: none;
 }
 
 .card_status {
@@ -75,6 +79,7 @@
   border-radius: 5px;
   background-color: #44546A;
   color: #FFFAEB;
+  cursor:pointer;
 }
 
 .card_write {
@@ -107,9 +112,10 @@
   border: 0px;
   background-color: #44546A;
   color: white;
+  cursor:pointer;
 }
 
-#card_edit_btn {
+#card_update_btn {
   height: 35px;
   width: 65px;
   font-weight: bold;
@@ -118,4 +124,5 @@
   border-radius: 5px;
   background-color: #44546A;
   color: white;
+  cursor:pointer;
 }

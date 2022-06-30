@@ -88,6 +88,7 @@ article {
   background-color: #44546A;
   color: #FFFAEB;
   font-size: 16px;
+  cursor:pointer;
 }
 
 .btn_box {
@@ -106,6 +107,7 @@ article {
   border: 2px solid #44546A;
   background-color: #44546A;
   color: white;
+  cursor:pointer;
 }
 
 .book_btn {
@@ -118,6 +120,7 @@ article {
   border: 2px solid #44546A;
   background-color: #FFFAEB;
   color: #44546A;
+  cursor:pointer;
 }
 
 .page {
