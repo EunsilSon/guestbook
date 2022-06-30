@@ -4,7 +4,11 @@ const card_insert_btn = document.getElementById('card_insert_btn');
 // 카드 작성
 card_insert_btn.addEventListener('click', function(){
   const card = document.getElementById('card');
-  console.log("insert : " + card.value);
+  
+  if (card.value == '') {
+    alert("카드를 작성하세요.");
+  } else {
+    console.log("insert : " + card.value);
 
   /*
   axios
@@ -13,4 +17,5 @@ card_insert_btn.addEventListener('click', function(){
 
   alert("카드가 작성되었습니다.");
   location.href="all_cards.html";
+  }
 })
