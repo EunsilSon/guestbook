@@ -26,20 +26,17 @@
       </section>
       
       <section class="comment_write">
-        <textarea placeholder="Write Here !"></textarea>
-        <button>등록</button>
+        <textarea id="new_comment" placeholder="Write Here !"></textarea>
+        <button id="insert_btn">등록</button>
       </section>
 
       <section class="comment_list">
-        <div class="comment_detail">
-          <p class="comment_writer">name</p>
-          <p class="comment_content">content</p>
-          <p class="comment_post_date">yyyy. mm. dd</p>
-        </div>
-
-        <div class="comment_detail">
-          <p class="comment_writer">name</p>
-          <p class="comment_content">content</p>
+        <div class="comment">
+          <div class="comment_top">
+            <p class="comment_writer">name</p>
+            <img id="delete_btn" src="../img/delete_btn.png">
+          </div>
+            <p class="comment_content">content</p>
           <p class="comment_post_date">yyyy. mm. dd</p>
         </div>
       </section>
@@ -54,7 +51,9 @@
         <img src="../img/return.png">
         <p>뒤로가기</p>
       </footer>
-
     </article>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/comment.js"></script>
   </body>
 </html>

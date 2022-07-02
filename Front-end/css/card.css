@@ -112,10 +112,10 @@
   border: 0px;
   background-color: #44546A;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-#card_update_btn {
+#update_btn {
   height: 35px;
   width: 65px;
   font-weight: bold;
@@ -124,5 +124,9 @@
   border-radius: 5px;
   background-color: #44546A;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.back {
+  cursor: pointer;
 }

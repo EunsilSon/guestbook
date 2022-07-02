@@ -2,13 +2,25 @@
   margin-bottom: 30px;
 }
 
-.comment_detail {
+.comment_top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment {
   width: 550px;
   height: 85px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   border-bottom: 0.5px solid lightgray;
+}
+
+.comment_list .comment img {
+  width: 15px;
+  height: 15px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 .comment_writer {
@@ -56,4 +68,5 @@
   border: 0px;
   background-color: #44546A;
   color: white;
+  cursor: pointer;
 }
