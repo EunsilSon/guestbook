@@ -1,0 +1,21 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: Guestbook
+    devtools:
+      livereload:
+        enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+  hibernate:
+    format_sql: true
+    ddl-auto: create
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://guestbook.cbowcyuwx4zn.ap-northeast-2.rds.amazonaws.com:3306/guestbook?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: eunsil12345
