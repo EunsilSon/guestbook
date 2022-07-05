@@ -13,68 +13,71 @@
       GUEST BOOK
     </header>
 
-      <article class="main_box">
-        <section class="user_profile">
-          <div class="profile_img">
-            <img src="../img/profile.png" />
-          </div>
+    <article class="main_box">
+      <section class="user_profile">
+        <div class="profile_img">
+          <img src="../img/profile.png" />
+        </div>
 
-          <div class="user_profile_info">
+        <div class="user_profile_info">
 
-           <p id="user_name">eunsil</p>
+          <p id="user_name">eunsil</p>
 
-            <ul id="card_count">
-              <li>
-                카드
-                <b>0</b>
-              </li>
-              <li>
-                확인 완료
-                <b>0</b>
-              </li>
-              <li>
-                확인 전
-                <b>0</b>
-              </li>
-            </ul>
+          <ul id="card_count">
+            <li>
+              카드
+              <b>0</b>
+            </li>
+            <li>
+              확인 완료
+              <b>0</b>
+            </li>
+            <li>
+              확인 전
+              <b>0</b>
+            </li>
+          </ul>
 
-            <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
+          <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <nav class="btn_box">
-          <button class="book_btn" onclick="location.href='all_cards.html'">모든 카드</button>
-          <button class="book_btn_focus" onclick="location.href='my_cards.html'">내가 쓴 카드</button>
-          <button class="book_btn" onclick="location.href='card_write.html'">카드 작성</button>
-        </nav>
+      <nav class="btn_box">
+        <button class="book_btn" onclick="location.href='all_cards.html'">모든 카드</button>
+        <button class="book_btn_focus" onclick="location.href='my_cards.html'">내가 쓴 카드</button>
+        <button class="book_btn" onclick="location.href='card_write.html'">카드 작성</button>
+      </nav>
 
-        <section class="card_list">
-          <div class="card">
-            <div onclick="location.href='card_detail.html'">
-              <div class="card_info">
-                <p class="card_writer">name</p>
-                <p class="card_post_date">yyyy. mm. dd</p>
-              </div>
-              <p class="card_content">content</p>
+      <section class="card_list">
+        <div class="card">
+          <div onclick="location.href='card_detail.html'">
+            <div class="card_info">
+              <p class="card_writer">name</p>
+              <p class="card_post_date">yyyy. mm. dd</p>
             </div>
-            <div class="card_status">
-              <button onclick="location.href='card_edit.html'">수정</button>
-              <button>삭제</button>
-            </div>
+            <p class="card_content">content</p>
           </div>
-        </section>
+          <div class="card_status">
+            <button onclick="location.href='card_edit.html'">수정</button>
+            <button>삭제</button>
+          </div>
+        </div>
+      </section>
 
-        <section class="page">
-          <img src="../img/prev_page.png">
-          0 / 0 페이지
-          <img src="../img/next_page.png">
-        </section>
-      </article>
+      <section class="page">
+        <img src="../img/prev_page.png">
+        0 / 0 페이지
+        <img src="../img/next_page.png">
+      </section>
+    </article>
 
-        <footer class="search">
-          <input placeholder="아이디 및 키워드 검색" />
-          <img src="../img/search.png">
-        </footer>
+    <footer class="search">
+      <input id="search_content" placeholder="아이디 및 키워드 검색" />
+      <img src="../img/search.png" id="search_btn" onClick="">
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/card.js"></script>
   </body>
 </html>
