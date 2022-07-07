@@ -43,6 +43,16 @@ function removeInput() {
 // 로그인
 function signIn() {
 
+  axios({
+    method: 'get', //통신 방식
+    url: 'http://54.180.153.82:8000', //통신할 페이지
+  }, {withCredentials : true})
+    .then((Response)=>{
+    console.log(Response.data);
+}).catch((Error)=>{
+    console.log(Error);
+})
+
   let userInfoArr = {
     userId : userId.value,
     userPw : userPw.value,
