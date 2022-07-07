@@ -34,7 +34,7 @@
 <br>
 
 + Front-end  
-<b>HTML, CSS, Javascript</b>를 사용합니다.
+<b>HTML, CSS, Javascript</b>를 사용합니다.a
 
 <br>
 
@@ -45,4 +45,9 @@ Java 기반의 웹 프레임워크 <b>Spring Boot</b>를 사용합니다.
 
 ## <b>4. 테이블 구조</b>
 <img width="399" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
+
+<br><br>
+
+## <b>5. 이슈와 해결</b>
+* Cors Policy로 인한 서버의 요청 거부<br>https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios
 
