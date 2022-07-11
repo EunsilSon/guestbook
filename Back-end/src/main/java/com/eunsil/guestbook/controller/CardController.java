@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://127.0.0.1:8080")
 @RestController
-public class cardController {
+public class CardController {
 
-    @GetMapping("/")
+    // 로그인
+    @GetMapping("sign_in")
     public String getCard() {
         return "success get card";
     }
