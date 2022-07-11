@@ -1,4 +1,4 @@
-package com.eunsil.guestbook.entity;
+package com.eunsil.guestbook.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

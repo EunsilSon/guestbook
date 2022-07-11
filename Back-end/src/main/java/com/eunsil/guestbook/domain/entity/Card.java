@@ -1,4 +1,4 @@
-package com.eunsil.guestbook.entity;
+package com.eunsil.guestbook.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

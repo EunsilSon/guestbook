@@ -1,16 +1,16 @@
 package com.eunsil.guestbook.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.eunsil.guestbook.service.CardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://127.0.0.1:8080")
 @RestController
 public class CardController {
+    private CardService cardService;
 
-    // 로그인
-    @GetMapping("sign_in")
-    public String getCard() {
-        return "success get card";
+    @Autowired
+    public CardController(CardService cardService) {
+        this.cardService = cardService;
     }
 }
