@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,4 +30,7 @@ public class User {
 
     @Column(columnDefinition = "boolean default true")
     public boolean isAdmin;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Card> cardList;
 }

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -20,13 +18,18 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @OneToMany
-    public List<User> users = new ArrayList<>();
-
     @Column
     public String postDate;
 
     @Column
     public String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id", nullable = false)
+    public Card card;
 
 }

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,10 +21,6 @@ public class Card {
     public Long id;
 
     @Column
-    @OneToMany
-    public List<User> users = new ArrayList<>();
-
-    @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public String postDate;
 
@@ -37,4 +32,11 @@ public class Card {
 
     @Column(columnDefinition = "boolean default true")
     public boolean isPublic;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User user;
+
+    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Comment> commentList;
 }
