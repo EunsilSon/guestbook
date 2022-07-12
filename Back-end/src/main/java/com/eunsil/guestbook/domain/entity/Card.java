@@ -27,9 +27,6 @@ public class Card {
     @Column
     public String content;
 
-    @Column
-    public String comment;
-
     @Column(columnDefinition = "boolean default true")
     public boolean isPublic;
 
