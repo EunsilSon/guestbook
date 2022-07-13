@@ -24,13 +24,17 @@ public class SignService {
     }
 
     public String signUp(String name, String pw, String tel) {
-        User user = User.builder()
-                .name(name)
-                .password(pw)
-                .telephone(tel)
-                .build();
-        userRepository.saveAndFlush(user);
-        return "ok";
+        if (userRepository.findByName(name) != null) {
+            return "Existed";
+        } else {
+            User user = User.builder()
+                    .name(name)
+                    .password(pw)
+                    .telephone(tel)
+                    .build();
+            userRepository.saveAndFlush(user);
+            return "ok";
+        }
     }
 
     public String findId(String tel) {
