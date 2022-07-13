@@ -1,0 +1,20 @@
+package com.eunsil.guestbook.domain.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Getter
+@Builder
+public class CardDTO {
+
+    public String name;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    public LocalDate postDate;
+
+    public String content;
+
+}

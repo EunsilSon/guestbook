@@ -1,10 +1,13 @@
 package com.eunsil.guestbook.controller;
 
+import com.eunsil.guestbook.domain.dto.CardDTO;
+import com.eunsil.guestbook.domain.entity.Card;
 import com.eunsil.guestbook.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @CrossOrigin(origins = "http://127.0.0.1:8080")
 @RestController
@@ -32,6 +35,12 @@ public class CardController {
     @ResponseBody
     public String delete(@RequestBody HashMap<String, String> param) {
         return cardService.delete(param.get("card_id"));
+    }
+
+    @GetMapping("/card/search")
+    @ResponseBody
+    public List<CardDTO> search(@RequestBody HashMap<String, String> param) {
+        return cardService.search(param.get("input"));
     }
 
 }

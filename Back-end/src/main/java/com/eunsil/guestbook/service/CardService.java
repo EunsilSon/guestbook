@@ -1,5 +1,6 @@
 package com.eunsil.guestbook.service;
 
+import com.eunsil.guestbook.domain.dto.CardDTO;
 import com.eunsil.guestbook.domain.entity.Card;
 import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
@@ -7,7 +8,10 @@ import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CardService {
@@ -45,4 +49,19 @@ public class CardService {
         return "ok";
     }
 
+    @Transactional
+    public List<CardDTO> search(String input) {
+        List<Card> cardList = cardRepository.findAllByInput(input);
+        List<CardDTO> cardDTOList = new ArrayList<>();
+
+        for (Card cards : cardList) {
+            CardDTO card = CardDTO.builder()
+                    .name(cards.getUser().getName())
+                    .content(cards.content)
+                    .postDate(cards.postDate)
+                    .build();
+            cardDTOList.add(card);
+        }
+        return cardDTOList;
+    }
 }
