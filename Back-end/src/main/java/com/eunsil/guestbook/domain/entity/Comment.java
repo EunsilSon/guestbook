@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -19,7 +20,7 @@ public class Comment {
     public Long id;
 
     @Column
-    public String postDate;
+    public LocalDate postDate;
 
     @Column
     public String content;

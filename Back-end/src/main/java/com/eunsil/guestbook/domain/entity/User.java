@@ -19,16 +19,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column
+    @Column(nullable = false)
     public String name;
 
-    @Column
+    @Column(nullable = false)
     public String password;
 
-    @Column
+    @Column(nullable = false)
     public String telephone;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "boolean default false")
     public boolean isAdmin;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

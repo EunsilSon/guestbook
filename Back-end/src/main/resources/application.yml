@@ -10,14 +10,14 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://guestbook.cbowcyuwx4zn.ap-northeast-2.rds.amazonaws.com:3306/guestbook?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:mysql://guestbook.cbowcyuwx4zn.ap-northeast-2.rds.amazonaws.com:3306/guestbook?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
     password: eunsil12345
 
   jpa:
     show-sql: true
     hibernate:
-#      ddl-auto: create
+      #      ddl-auto: create
       ddl-auto: update
     properties:
       hibernate:
