@@ -6,6 +6,7 @@ import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
 import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -74,5 +75,21 @@ public class CardService {
             cardDTOList.add(card);
         }
         return cardDTOList;
+    }
+
+    public List<CardDTO> getAll(Integer page) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
+        List<Card> cardList = cardRepository.findAllByOrderByIdDesc(pageable);
+        List<CardDTO> cardDtoList = new ArrayList<>();
+
+        for (Card cards : cardList) {
+            CardDTO cardDto = CardDTO.builder()
+                    .name(cards.getUser().getName())
+                    .content(cards.getContent())
+                    .postDate(cards.getPostDate())
+                    .build();
+            cardDtoList.add(cardDto);
+        }
+        return cardDtoList;
     }
 }

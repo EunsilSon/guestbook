@@ -39,8 +39,13 @@ public class CardController {
 
     @GetMapping("/card/search")
     @ResponseBody
-    public List<CardDTO> searchByUsername(@RequestBody HashMap<String, String> param, @RequestParam("page") Integer page) {
+    public List<CardDTO> search(@RequestBody HashMap<String, String> param, @RequestParam("page") Integer page) {
         return cardService.search(param, page);
+    }
+
+    @GetMapping("/card/all")
+    public List<CardDTO> getAll(@RequestParam("page") Integer page) {
+        return cardService.getAll(page);
     }
 
 }
