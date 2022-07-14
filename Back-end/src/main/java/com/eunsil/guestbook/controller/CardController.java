@@ -1,6 +1,7 @@
 package com.eunsil.guestbook.controller;
 
 import com.eunsil.guestbook.domain.dto.CardDTO;
+import com.eunsil.guestbook.domain.entity.Card;
 import com.eunsil.guestbook.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,11 @@ public class CardController {
     @GetMapping("/card/all")
     public List<CardDTO> getAll(@RequestParam("page") Integer page) {
         return cardService.getAll(page);
+    }
+
+    @GetMapping("/card")
+    public CardDTO getDetail(@RequestParam("id") String cardId) {
+        return cardService.getDetail(cardId);
     }
 
 }

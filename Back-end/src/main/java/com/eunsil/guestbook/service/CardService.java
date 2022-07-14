@@ -92,4 +92,15 @@ public class CardService {
         }
         return cardDtoList;
     }
+
+    public CardDTO getDetail(String cardId) {
+        Card card = cardRepository.findById(cardId);
+
+        CardDTO cardDTO = CardDTO.builder()
+                .name(card.user.getName())
+                .content(card.getContent())
+                .postDate(card.getPostDate())
+                .build();
+        return cardDTO;
+    }
 }
