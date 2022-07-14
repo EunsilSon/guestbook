@@ -34,12 +34,12 @@
 <br>
 
 + Front-end  
-<b>HTML, CSS, Javascript</b>를 사용합니다.a
+<b>HTML, CSS, Javascript, Axios(HTTP 통신 라이브러리)</b>를 사용합니다.
 
 <br>
 
 + Back-end  
-Java 기반의 웹 프레임워크 <b>Spring Boot</b>를 사용합니다.
+Java 기반의 웹 프레임워크 <b>Spring Boot와 JPA(Hibernate)</b>를 사용합니다.
 
 <br><br>
 
