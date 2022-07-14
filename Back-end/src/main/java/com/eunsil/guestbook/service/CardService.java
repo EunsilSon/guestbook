@@ -6,9 +6,11 @@ import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
 import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,13 +52,13 @@ public class CardService {
         return "ok";
     }
 
-    @Transactional
-    public List<CardDTO> search(HashMap<String, String> param) {
+    public List<CardDTO> search(HashMap<String, String> param, Integer page) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
         List<Card> cardList;
 
         if (param.containsKey("username")) {
             User user = userRepository.findByName(param.get("username"));
-            cardList = cardRepository.findAllByUser(user);
+            cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
         } else {
             cardList = cardRepository.findAllByContent(param.get("content"));
         }
