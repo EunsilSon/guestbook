@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -50,8 +51,16 @@ public class CardService {
     }
 
     @Transactional
-    public List<CardDTO> search(String input) {
-        List<Card> cardList = cardRepository.findAllByInput(input);
+    public List<CardDTO> search(HashMap<String, String> param) {
+        List<Card> cardList;
+
+        if (param.containsKey("username")) {
+            User user = userRepository.findByName(param.get("username"));
+            cardList = cardRepository.findAllByUser(user);
+        } else {
+            cardList = cardRepository.findAllByContent(param.get("content"));
+        }
+
         List<CardDTO> cardDTOList = new ArrayList<>();
 
         for (Card cards : cardList) {
