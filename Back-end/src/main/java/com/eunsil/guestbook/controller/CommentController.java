@@ -1,10 +1,13 @@
 package com.eunsil.guestbook.controller;
 
+import com.eunsil.guestbook.domain.dto.CommentDTO;
 import com.eunsil.guestbook.service.CommentService;
+import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @CrossOrigin(origins = "http://127.0.0.1:8080")
 @RestController
@@ -26,5 +29,11 @@ public class CommentController {
     @ResponseBody
     public String delete(@RequestBody HashMap<String, String> param) {
         return commentService.delete(param.get("comment_id"));
+    }
+
+    @GetMapping("/comment")
+    @ResponseBody
+    public List<CommentDTO> get(@RequestBody HashMap<String, String> param, @RequestParam Integer page) {
+        return commentService.get(param.get("card_id"), page);
     }
 }
