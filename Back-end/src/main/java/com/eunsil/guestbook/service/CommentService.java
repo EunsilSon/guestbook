@@ -33,7 +33,7 @@ public class CommentService {
 
     public String insert(String card_id, String name, String content) {
         Card card = cardRepository.findById(card_id); // 댓글 작성한 카드
-        User user = userRepository.findByName(name);
+        User user = userRepository.findUserByName(name);
 
         Comment comment = Comment.builder()
                 .card(card)

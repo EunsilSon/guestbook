@@ -29,7 +29,7 @@ public class CardService {
     }
 
     public String insert(String name, String content) {
-        User user = userRepository.findByName(name);
+        User user = userRepository.findUserByName(name);
 
         Card card = Card.builder()
                 .user(user)
@@ -58,7 +58,7 @@ public class CardService {
         List<Card> cardList;
 
         if (param.containsKey("username")) {
-            User user = userRepository.findByName(param.get("username"));
+            User user = userRepository.findUserByName(param.get("username"));
             cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
         } else {
             cardList = cardRepository.findAllByContent(param.get("content"));

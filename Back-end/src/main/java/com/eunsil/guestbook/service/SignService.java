@@ -24,10 +24,12 @@ public class SignService {
     }
 
     public String signUp(String name, String pw, String tel) {
-        if (userRepository.findByName(name) != null) {
+        User user = userRepository.findUserByName(name);
+
+        if (user != null) {
             return "Existed";
         } else {
-            User user = User.builder()
+            user = User.builder()
                     .name(name)
                     .password(pw)
                     .telephone(tel)
@@ -38,11 +40,11 @@ public class SignService {
     }
 
     public String findId(String tel) {
-        User user = userRepository.findUsernameByTelephone(tel);
+        User user = userRepository.findUserByTelephone(tel);
         if (user == null) {
             return "fail";
         } else {
-            return user.name;
+            return user.getName();
         }
     }
 
@@ -51,7 +53,7 @@ public class SignService {
         if (user == null) {
             return "fail";
         } else {
-            return user.password;
+            return user.getPassword();
         }
     }
 }
