@@ -30,13 +30,14 @@ public class SignController {
 
     @GetMapping("/id")
     @ResponseBody
-    public String findId(@RequestBody HashMap<String, String> param) {
-        return signService.findId(param.get("telephone"));
+    public String findId(@RequestParam String tel) {
+        System.out.println(tel);
+        return signService.findId(tel);
     }
 
     @GetMapping("/pw")
     @ResponseBody
-    public String findPw(@RequestBody HashMap<String, String> param) {
-        return signService.findPw(param.get("username"), param.get("telephone"));
+    public String findPw(@RequestParam String name, String tel) {
+        return signService.findPw(name,tel);
     }
 }
