@@ -42,26 +42,38 @@ public class CardService {
 
     public String update(String card_id, String content) {
         Card card = cardRepository.findById(card_id);
-        card.setContent(content);
-        cardRepository.saveAndFlush(card);
-        return "ok";
+        if (card != null) {
+            card.setContent(content);
+            cardRepository.saveAndFlush(card);
+            return "ok";
+        } else {
+            return "Not Existed Card";
+        }
     }
 
     public String delete(String card_id) {
         Card card = cardRepository.findById(card_id);
-        cardRepository.deleteById(card.id);
-        return "ok";
+        if (card != null) {
+            cardRepository.deleteById(card.id);
+            return "ok";
+        } else {
+            return "Not Existed Card";
+        }
     }
 
-    public List<CardDTO> search(HashMap<String, String> param, Integer page) {
+    public List<CardDTO> search(Integer page, String location, String option, String name, String content) {
         Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
         List<Card> cardList;
-
-        if (param.containsKey("username")) {
-            User user = userRepository.findUserByName(param.get("username"));
-            cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
-        } else {
-            cardList = cardRepository.findAllByContent(param.get("content"));
+        if (location == "all") { // 모든 카드 페이지
+            if (option == "username") { // 사용자 명으로 찾기
+                User user = userRepository.findUserByName(content);
+                cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
+            } else { // 내용으로 찾기
+                cardList = cardRepository.findAllByContent(content);
+            }
+        } else { // 내 카드 페이지 - 내용으로 찾기
+            User user = userRepository.findUserByName(name);
+            cardList = cardRepository.findAllByUserByContent(content, user);
         }
 
         List<CardDTO> cardDTOList = new ArrayList<>();
