@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/book.css">
     <link rel="stylesheet" href="../css/card.css">
   </head>
-  <body>
+  <body onload="getMyCards('next');">
     <header class="book_title">
       GUEST BOOK
     </header>
@@ -66,9 +66,9 @@
       </section>
 
       <section class="page">
-        <img src="../img/prev_page.png">
+        <img src="../img/prev_page.png" id="myCardsPagePrev">
         0 / 0 페이지
-        <img src="../img/next_page.png">
+        <img src="../img/next_page.png" id="myCardsPageNext">
       </section>
     </article>
 

@@ -8,76 +8,70 @@
     <link rel="stylesheet" href="../css/book.css">
     <link rel="stylesheet" href="../css/card.css">
   </head>
-  <body>
+  <body onload="getAllCards('next');">
     <header class="book_title">
       GUEST BOOK
     </header>
-
-    <article class="main_box">
-      <section class="user_profile">
-        <div class="profile_img">
-          <img src="../img/profile.png" />
-        </div>
-
-        <div class="user_profile_info">
-
-          <p id="user_name">eunsil</p>
-
-          <ul id="card_count">
-            <li>
-              카드
-              <b>0</b>
-            </li>
-            <li>
-              확인 완료
-              <b>0</b>
-            </li>
-            <li>
-              확인 전
-              <b>0</b>
-            </li>
-          </ul>
-
-          <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
-
-        </div>
-      </section>
-
-      <nav class="btn_box">
-        <button class="book_btn_focus" onclick="location.href='all_cards.html'">모든 카드</button>
-        <button class="book_btn" onclick="location.href='my_cards.html'">내가 쓴 카드</button>
-        <button class="book_btn" onclick="location.href='card_write.html'">카드 작성</button>
-      </nav>
-
-      <section class="card_list">
-        <div class="card" onclick="location.href='card_detail.html'">
-          <div class="card_info">
-            <p class="card_writer">name</p>
-            <p class="card_post_date">yyyy. mm. dd</p>
+      <article class="main_box">
+        <section class="user_profile">
+          <div class="profile_img">
+            <img src="../img/profile.png" />
           </div>
-          <p>content</p>
-        </div>
-        <div class="card" onclick="location.href='card_detail.html'">
-          <div class="card_info">
-            <p class="card_writer">name</p>
-            <p class="card_post_date">yyyy. mm. dd</p>
+
+          <div class="user_profile_info">
+            <p id="user_name">eunsil</p>
+            <ul id="card_count">
+              <li>
+                카드
+                <b>0</b>
+              </li>
+              <li>
+                확인 완료
+                <b>0</b>
+              </li>
+              <li>
+                확인 전
+                <b>0</b>
+              </li>
+            </ul>
+            <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
           </div>
-          <p class="card_content">content</p>
-        </div>
-      </section>
+        </section>
 
-      <section class="page">
-        <img src="../img/prev_page.png">
-        0 / 0 페이지
-        <img src="../img/next_page.png">
-      </section>
-    </article>
+        <nav class="btn_box">
+          <button class="book_btn_focus" onclick="location.href='all_cards.html'">모든 카드</button>
+          <button class="book_btn" onclick="location.href='my_cards.html'">내가 쓴 카드</button>
+          <button class="book_btn" onclick="location.href='card_write.html'">카드 작성</button>
+        </nav>
 
-    <footer class="search">
-      <input id="search_content" placeholder="아이디 및 키워드 검색" />
-      <img src="../img/search.png" id="search_btn" onClick="">
-    </footer>
+        <section class="card_list">
+          <div class="card" onclick="location.href='card_detail.html'">
+            <div class="card_info">
+              <p class="card_writer">name</p>
+              <p class="card_post_date">yyyy. mm. dd</p>
+            </div>
+            <p>content</p>
+          </div>
+          <div class="card" onclick="location.href='card_detail.html'">
+            <div class="card_info">
+              <p class="card_writer">name</p>
+              <p class="card_post_date">yyyy. mm. dd</p>
+            </div>
+            <p class="card_content">content</p>
+          </div>
+        </section>
 
+        <section class="page">
+          <img src="../img/prev_page.png" id="allCardsPagePrev">
+          0 / 0 페이지
+          <img src="../img/next_page.png" id="allCardsPageNext">
+        </section>
+      </article>
+
+      <footer class="search">
+        <input id="search_content" placeholder="아이디 및 키워드 검색" />
+        <img src="../img/search.png" id="search_btn" onClick="">
+      </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/card.js"></script>
   </body>

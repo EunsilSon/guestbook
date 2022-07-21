@@ -38,7 +38,7 @@ function signIn() {
 
   let userInfoArr = {
     userPw : userPw.value,
-    userName : "not existed",
+    userName : userName.value,
     userTel : "not existed",
   };
 
@@ -57,6 +57,7 @@ function signIn() {
           removeInput();
         } else {
           alert("로그인 되었습니다.");
+          localStorage.setItem('username', userName.value);
           form.submit();
           removeInput();
         }
