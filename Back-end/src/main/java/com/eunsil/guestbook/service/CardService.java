@@ -73,7 +73,7 @@ public class CardService {
             }
         } else { // 내 카드 페이지 - 내용으로 찾기
             User user = userRepository.findUserByName(name);
-            cardList = cardRepository.findAllByUserByContent(content, user);
+            cardList = cardRepository.findAllByUserByContentOrderByIdDesc(content, user, pageable);
         }
 
         List<CardDTO> cardDTOList = new ArrayList<>();

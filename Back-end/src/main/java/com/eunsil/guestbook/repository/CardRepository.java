@@ -17,7 +17,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     List<Card> findAllByContent(String content);
 
     @Query(value = "SELECT * FROM card WHERE user_id = :user AND content LIKE %:content%", nativeQuery = true)
-    List<Card> findAllByUserByContent(String content, User user);
+    List<Card> findAllByUserByContentOrderByIdDesc(String content, User user, Pageable pageable);
 
     List<Card> findAllByUserOrderByIdDesc(User user, Pageable pageable);
 
