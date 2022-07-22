@@ -1,3 +1,7 @@
+body {
+  height: auto
+}
+
 #card_count {
   display: flex;
   flex-direction: row;
