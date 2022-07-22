@@ -1,3 +1,4 @@
+
 const insert_btn = document.getElementById('insert_btn');
 const update_btn = document.getElementById('update_btn');
 const search_btn = document.getElementById('search_btn');
@@ -8,6 +9,9 @@ const myCardsPageNext = document.getElementById('myCardsPageNext');
 
 let username;
 let pageCount = -1;
+let pageTotal = 3; // 임의
+let isDrawCard = false;
+let cardList = new Array();
 
 if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
@@ -174,7 +178,26 @@ function searchCard() {
   }
 }
 
-// 모든 카드 보기
+
+// 모든 카드
+function getAllCards(option) {
+  if (option == "prev") {
+    if (pageCount <= 0) {
+      alert("첫 페이지 입니다.");
+    } else {
+      pageCount--;
+      getAllCardList();
+    }
+  } else {
+    if ((pageTotal - pageCount) == 1) {
+      alert("마지막 페이지 입니다.");
+    } else {
+      pageCount++;
+      getAllCardList();
+    }
+  }
+}
+
 function getAllCardList() {
   axios({
     method: 'get',
@@ -184,33 +207,35 @@ function getAllCardList() {
     }
   }, { withCredentials : true })
     .then((Response)=>{
-      if (Response.data.length < 5) {
-        console.log(Response.data);
-        alert("마지막 페이지 입니다.")
-      } else {
-        console.log(Response.data);
+      cardList = Response.data;
+
+      deleteCards(document.getElementById('card_list'));
+
+      for (i = 0; i < Response.data.length; i++) {
+        drawCard(cardList[i].name, cardList[i].postDate, cardList[i].content);
       }
-  }).catch((Error)=>{
-      console.log(Error);
-  })
+    
+    }).catch((Error)=>{
+        console.log(Error);
+    })
 }
 
-// 모든 카드
-function getAllCards(option) {
+
+// 내가 쓴 카드
+function getMyCards(option) {
   if (option == "prev") {
     if (pageCount <= 0) {
       alert("첫 페이지 입니다.");
     } else {
       pageCount = pageCount-1;
-      getAllCardList();
+      getMyCardList();
     }
   } else {
     pageCount = pageCount+1;
-    getAllCardList();
+    getMyCardList();
   }
 }
 
-// 내가 쓴 카드 보기
 function getMyCardList() {
   axios({
     method: 'get',
@@ -235,20 +260,35 @@ function getMyCardList() {
   })
 }
 
-// 내가 쓴 카드
-function getMyCards(option) {
-  if (option == "prev") {
-    if (pageCount <= 0) {
-      alert("첫 페이지 입니다.");
-    } else {
-      pageCount = pageCount-1;
-      getMyCardList();
-    }
-  } else {
-    pageCount = pageCount+1;
-    getMyCardList();
-  }
+// create DIV
+function drawCard(writer, postDate, content) {
+  let cardList = document.getElementById('card_list');
+  let card = document.createElement('div');
+  let cardInfo = document.createElement('div');
+  let cardWriter = document.createElement('p');
+  let cardPostDate = document.createElement('p');
+  let cardContent = document.createElement('p');
+
+  card.setAttribute('class', 'card');
+  cardInfo.setAttribute('class', 'card_info');
+
+  cardWriter.setAttribute('class', 'card_writer');
+  cardWriter.innerHTML = writer;
+  cardPostDate.setAttribute('class', 'card_post_date');
+  cardPostDate.innerHTML = postDate;
+  cardContent.setAttribute('class', 'card_content');
+  cardContent.innerHTML = content;
+  
+  cardList.appendChild(card);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardWriter);
+  cardInfo.appendChild(cardPostDate);
+  card.appendChild(cardContent);
 }
 
-
-// 카드 상세
+// delete DIV
+function deleteCards(div) {
+  while(div.hasChildNodes()) {
+    div.removeChild(div.firstChild);
+  }
+}
