@@ -6,7 +6,6 @@ import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
 import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -80,6 +78,7 @@ public class CardService {
 
         for (Card cards : cardList) {
             CardDTO card = CardDTO.builder()
+                    .cardId(cards.getId())
                     .name(cards.getUser().getName())
                     .content(cards.content)
                     .postDate(cards.postDate)
@@ -96,6 +95,7 @@ public class CardService {
 
         for (Card cards : cardList) {
             CardDTO cardDto = CardDTO.builder()
+                    .cardId(cards.getId())
                     .name(cards.getUser().getName())
                     .content(cards.getContent())
                     .postDate(cards.getPostDate())
@@ -109,6 +109,7 @@ public class CardService {
         Card card = cardRepository.findById(cardId);
 
         CardDTO cardDTO = CardDTO.builder()
+                .cardId(card.getId())
                 .name(card.user.getName())
                 .content(card.getContent())
                 .postDate(card.getPostDate())

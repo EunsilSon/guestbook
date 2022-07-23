@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Builder
 public class CardDTO {
 
+    public Long cardId;
+
     public String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
