@@ -68,7 +68,7 @@ body {
   resize: none;
 }
 
-.card_status {
+.card_btn {
   display: flex;
   flex-direction: row-reverse;
   margin-top: 15px;

@@ -5,13 +5,16 @@ let pageTotal = 3; // 임의
 let isDrawCard = false;
 let cardList = new Array();
 
+
 const insert_btn = document.getElementById('insert_btn');
 const update_btn = document.getElementById('update_btn');
 const search_btn = document.getElementById('search_btn');
+
 const allCardsPagePrev = document.getElementById('allCardsPagePrev');
 const allCardsPageNext = document.getElementById('allCardsPageNext');
 const myCardsPagePrev = document.getElementById('myCardsPagePrev');
 const myCardsPageNext = document.getElementById('myCardsPageNext');
+
 
 if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
@@ -49,6 +52,7 @@ if (document.getElementById('myCardsPageNext')) {
   myCardsPageNext.addEventListener('click', () => getMyCards("next"));
 }
 
+
 // 카드 작성 (completed)
 function insertCard() {
   console.log(username);
@@ -80,13 +84,13 @@ function insertCard() {
 
 
 // 카드 수정
-function updateCard() {
+function updateCard(cardId) {
   const cardContent = document.getElementById('card_content');
   axios({
     method: 'patch',
     url: 'http://54.180.95.53:8000/card',
     data: {
-      "card_id":"2",
+      "card_id":cardId,
       "content":cardContent.value
     }
   }, { withCredentials : true })
@@ -104,12 +108,12 @@ function updateCard() {
 
 
 // 카드 삭제
-function deleteCard() {
+function deleteCard(cardId) {
   axios({
     method: 'delete',
     url: 'http://54.180.95.53:8000/card',
     data: {
-      "card_id":"2"
+      "card_id":cardId
     }
   }, { withCredentials : true })
     .then((Response)=>{
@@ -117,7 +121,7 @@ function deleteCard() {
         console.log(Response.data);
       } else {
         alert("카드가 삭제되었습니다.");
-        location.href="my_card.html";
+        location.href="my_cards.html";
       }
   }).catch((Error)=>{
       console.log(Error);
@@ -258,7 +262,7 @@ function getMyCardList() {
       deleteCards(document.getElementById('card_list'));
 
       for (i = 0; i < Response.data.length; i++) {
-        drawCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+        drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
       }
     
     }).catch((Error)=>{
@@ -283,7 +287,7 @@ function getCardDetail(cardId) {
   })
 }
 
-// create DIV
+// create card
 function drawCard(id, writer, postDate, content) {
   let cardList = document.getElementById('card_list');
   let card = document.createElement('div');
@@ -315,7 +319,57 @@ function drawCard(id, writer, postDate, content) {
   card.appendChild(cardId);
 }
 
-// delete DIV
+function drawMyCard(id, writer, postDate, content) {
+  let cardList = document.getElementById('card_list');
+  let card = document.createElement('div');
+  let cardInfo = document.createElement('div');
+  let cardBtn = document.createElement('div');
+  let cardWriter = document.createElement('p');
+  let cardPostDate = document.createElement('p');
+  let cardContent = document.createElement('p');
+  let cardId = document.createElement('p');
+  let editBtn = document.createElement('button');
+  let deleteBtn = document.createElement('button');
+
+  card.setAttribute('class', 'card');
+  cardInfo.setAttribute('class', 'card_info');
+  cardBtn.setAttribute('class', 'card_btn');
+
+  cardWriter.setAttribute('class', 'card_writer');
+  cardWriter.innerHTML = writer;
+
+  cardPostDate.setAttribute('class', 'card_post_date');
+  cardPostDate.innerHTML = postDate;
+
+  cardContent.setAttribute('class', 'card_content');
+  cardContent.innerHTML = content;
+
+  cardId.innerHTML = id;
+  cardId.style.visibility = "hidden";
+
+  editText = document.createTextNode('수정');
+  deleteText = document.createTextNode('삭제');
+  editBtn.appendChild(editText);
+  deleteBtn.appendChild(deleteText);
+
+  //editBtn.setAttribute('onclick', 'getCardUpdate(' + cardId.innerText + ');');
+  deleteBtn.setAttribute('onclick', 'deleteCard(' + cardId.innerText + ');');
+
+  
+  // appendChild 순서에 따라 만들어지는 순서가 바뀜
+  cardList.appendChild(card);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardWriter);
+  cardInfo.appendChild(cardPostDate);
+  card.appendChild(cardContent);
+  card.appendChild(cardBtn);
+  cardBtn.appendChild(deleteBtn);
+  cardBtn.appendChild(editBtn);
+
+  card.appendChild(cardId);
+}
+
+// delete card
 function deleteCards(div) {
   while(div.hasChildNodes()) {
     div.removeChild(div.firstChild);
