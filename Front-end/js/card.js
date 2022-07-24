@@ -80,11 +80,36 @@ function loadDetailPage() {
     }
   }, { withCredentials : true })
     .then((Response)=>{
+      console.log(Response.data);
       cardList = Response.data;
-      drawUpdateCard(cardList.name, cardList.postDate, cardList.content);
+      drawDetailCard(cardList.name, cardList.postDate, cardList.content);
   }).catch((Error)=>{
       console.log(Error);
   })
+}
+
+// 카드 상세보기 그리기
+function drawDetailCard(writer, postDate, content) {
+  let cardDetail = document.getElementById('card_detail');
+  let cardInfo = document.getElementById('card_info');
+
+  let cardWriter = document.createElement('p');
+  let cardPostDate = document.createElement('p');
+  let cardContent = document.createElement('p');
+
+  cardWriter.setAttribute('class', 'card_writer');
+  cardWriter.innerHTML = writer;
+
+  cardPostDate.setAttribute('class', 'card_post_date');
+  cardPostDate.innerHTML = postDate;
+
+  cardContent.setAttribute('class', 'card_content');
+  cardContent.innerHTML = content;
+  
+  cardDetail.appendChild(cardInfo);
+  cardInfo.appendChild(cardWriter);
+  cardInfo.appendChild(cardPostDate);
+  cardDetail.appendChild(cardContent);
 }
 
 // 카드 수정 페이지 (completed)
@@ -154,7 +179,7 @@ function updateCard() {
         console.log(Response.data);
       } else {
         alert("카드가 수정되었습니다.");
-        location.href="card_detail.html?id=" + cardId; // 수정한 카드로 이동
+        location.href="my_cards.html"; // 수정한 카드로 이동
       }
   }).catch((Error)=>{
       console.log(Error);

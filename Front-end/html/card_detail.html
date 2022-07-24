@@ -9,42 +9,37 @@
     <link rel="stylesheet" href="../css/card.css">
     <link rel="stylesheet" href="../css/comment.css">
   </head>
-  <body>
+  <body onload = "loadDetailPage();">
     <header class="book_title">
       GUEST BOOK
     </header>
 
     <article class="main_box">
-
-      <section class="card_detail">
-
-        <div class="card_info">
-          <p class="card_writer">name</p>
-          <p class="card_post_date">yyyy. mm. dd</p>
-        </div>
-        <p class="card_content">content</p>
+      <section id="card_detail" class="card_detail">
+        <div id="card_info" class="card_info">
+          </div>
       </section>
       
       <section class="comment_write">
         <textarea id="new_comment" placeholder="Write Here !"></textarea>
-        <button id="insert_btn">등록</button>
+        <button id="comment_insert_btn">등록</button>
       </section>
 
       <section class="comment_list">
+        <!--
         <div class="comment">
           <div class="comment_top">
             <p class="comment_writer">name</p>
-            <img id="delete_btn" src="../img/delete_btn.png">
+            <img id="comment_delete_btn" src="../img/delete_btn.png">
           </div>
             <p class="comment_content">content</p>
           <p class="comment_post_date">yyyy. mm. dd</p>
         </div>
+        -->
       </section>
 
       <section class="page">
-        <img src="../img/prev_page.png">
-        0 / 0 페이지
-        <img src="../img/next_page.png">
+        댓글 더보기
       </section>
 
       <footer class="back" onclick="location.href='all_cards.html'">
@@ -54,6 +49,6 @@
     </article>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/comment.js"></script>
+    <script src="../js/card.js"></script>
   </body>
 </html>
