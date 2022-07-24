@@ -9,6 +9,9 @@ const insert_btn = document.getElementById('insert_btn');
 const update_btn = document.getElementById('update_btn');
 const search_btn = document.getElementById('search_btn');
 
+const commentInsertBtn = document.getElementById('comment_insert_btn');
+const commentDeleteBtn = document.getElementById('comment_delete_btn');
+
 const allCardsPagePrev = document.getElementById('allCardsPagePrev');
 const allCardsPageNext = document.getElementById('allCardsPageNext');
 const myCardsPagePrev = document.getElementById('myCardsPagePrev');
@@ -33,6 +36,14 @@ if (document.getElementById("delete_btn")) {
 
 if (document.getElementById("search_btn")) {
   search_btn.addEventListener('click', () => searchCard());
+}
+
+if (document.getElementById("comment_insert_btn")) {
+  commentInsertBtn.addEventListener('click', () => insertComment());
+}
+
+if (document.getElementById("comment_delete_btn")) {
+  commentDeleteBtn.addEventListener('click', () => deleteComment());
 }
 
 if (document.getElementById('allCardsPagePrev')) {
@@ -503,6 +514,3 @@ function deleteComment() {
       console.log(Error);
   })
 }
-
-insert_btn.addEventListener('click', () => insertComment());
-delete_btn.addEventListener('click', () => deleteComment());
