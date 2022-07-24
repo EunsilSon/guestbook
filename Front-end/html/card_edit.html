@@ -8,20 +8,22 @@
     <link rel="stylesheet" href="../css/book.css">
     <link rel="stylesheet" href="../css/card.css">
   </head>
-  <body>
+  <body onload="loadEditPage();">
     <header class="book_title">
       GUEST BOOK
     </header>
 
     <article class="main_box">
 
-      <section class="card_detail">
+      <section id="card_detail" class="card_detail">
 
-        <div class="card_info">
+        <div id="card_info" class="card_info">
+          <!--
           <p class="card_writer">name</p>
           <p class="card_post_date">yyyy. mm. dd</p>
         </div>
         <textarea id="card_content" class="card_content">content</textarea>
+        -->
       </section>
 
       <button id="update_btn">완료</button>
