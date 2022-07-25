@@ -52,3 +52,4 @@ Java 기반의 웹 프레임워크 <b>Spring Boot와 JPA(Hibernate)</b>를 사�
 * Cors Policy로 인한 서버의 요청 거부<br>https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios
 * [JPA] DELETE Query 에러 : Statement.executeQuery()<br>https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets
 * [JPA] save(), saveAll(), saveAndFlush() 차이<br>https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4
+* [Axios] Response.data 출력하기 https://velog.io/@eunsilson/Axios-Response.data-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0
