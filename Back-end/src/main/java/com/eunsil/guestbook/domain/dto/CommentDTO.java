@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Builder
 public class CommentDTO {
 
+    public Long commentId;
+
     public String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

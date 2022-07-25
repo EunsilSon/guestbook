@@ -59,6 +59,7 @@ public class CommentService {
 
         for (Comment comments : commentList) {
             CommentDTO commentDto = CommentDTO.builder()
+                    .commentId(comments.getId())
                     .name(comments.getUser().getName())
                     .content(comments.getContent())
                     .postDate(comments.getPostDate())
