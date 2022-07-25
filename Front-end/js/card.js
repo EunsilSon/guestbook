@@ -48,9 +48,9 @@ if (document.getElementById("comment_insert_btn")) {
   commentInsertBtn.addEventListener('click', () => insertComment());
 }
 
-if (document.getElementById("comment_delete_btn")) {
-  commentDeleteBtn.addEventListener('click', () => deleteComment());
-}
+// if (document.getElementById("comment_delete_btn")) {
+//   commentDeleteBtn.addEventListener('click', () => deleteComment());
+// }
 
 if (document.getElementById('allCardsPagePrev')) {
   allCardsPagePrev.addEventListener('click', () => getAllCards("prev"));
@@ -68,7 +68,7 @@ if (document.getElementById('myCardsPageNext')) {
   myCardsPageNext.addEventListener('click', () => getMyCards("next"));
 }
 
-// url 파라미터 가져오기
+// url에 있는 card id 가져오기
 function getParam() {
   const urlParams = new URL(location.href).searchParams;
   return urlParams.get('id');
@@ -122,6 +122,7 @@ function drawDetailCard(writer, postDate, content) {
   cardDetail.appendChild(cardContent);
 }
 
+// 댓글
 function getCommentList() {
   const cardId = getParam();
 
@@ -172,8 +173,8 @@ function drawComments(cardId, commentId, writer, postDate, content) {
   commentPostDate.innerHTML = postDate;
 
   deleteBtnImg.setAttribute('id', 'comment_delete_btn');
-  deleteBtnImg.setAttribute('onClick', 'deleteComment(' + commentId, cardId + ');');
   deleteBtnImg.src = "../img/delete_btn.png";
+  deleteBtnImg.setAttribute('onclick', 'deleteComment(' + commentId + ',' + cardId + String.fromCharCode(41));
 
   commentList.appendChild(comment);
   comment.appendChild(commentTop);
@@ -384,7 +385,6 @@ function searchCard() {
   }
 }
 
-
 // 모든 카드 (completed)
 function getAllCards(option) {
   if (option == "prev") {
@@ -582,7 +582,7 @@ function insertComment() {
           console.log(Response.data);
         } else {
           alert("댓글이 작성되었습니다.");
-          location.href="card_detail.html?id=" + cardId +'"';
+          location.href="card_detail.html?id=" + cardId;
           newComment.value = '';
         }
   }).catch((Error)=>{
@@ -606,7 +606,7 @@ function deleteComment(commentId, cardId) {
         console.log(Response.data);
       } else {
         alert("댓글이 삭제되었습니다.");
-        location.href="card_detail.html?id=" + cardId +'"';
+        location.href="card_detail.html?id=" + cardId;
       }
   }).catch((Error)=>{
       console.log(Error);
