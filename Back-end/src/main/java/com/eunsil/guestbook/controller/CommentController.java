@@ -33,7 +33,7 @@ public class CommentController {
 
     @GetMapping("/comment")
     @ResponseBody
-    public List<CommentDTO> get(@RequestBody HashMap<String, String> param, @RequestParam Integer page) {
-        return commentService.get(param.get("card_id"), page);
+    public List<CommentDTO> get(@RequestParam Integer page, String cardId) {
+        return commentService.get(cardId, page);
     }
 }
