@@ -562,8 +562,9 @@ function deleteCards(div) {
 
 // 댓글 작성
 function insertComment() {
+  const cardId = getParam();
   const newComment = document.getElementById('new_comment').value;
-  console.log(username);
+
   if (newComment.value == '') {
     alert("댓글을 작성하세요.");
   } else {
@@ -571,8 +572,8 @@ function insertComment() {
       method: 'post',
       url: 'http://54.180.95.53:8000/comment',
       data: {
-        "card_id":"1",
-        "username": username,
+        "card_id":cardId,
+        "name": username,
         "content": newComment
       }
     }, { withCredentials : true })
@@ -581,7 +582,7 @@ function insertComment() {
           console.log(Response.data);
         } else {
           alert("댓글이 작성되었습니다.");
-          location.href=""; // 해당 카드 ID 다시 그리기
+          location.href="card_detail.html?id=" + cardId +'"';
           newComment.value = '';
         }
   }).catch((Error)=>{
