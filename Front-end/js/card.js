@@ -1,9 +1,15 @@
 let username;
+
 let pageCount = -1;
 let myPageCount = -1;
+let commentPageCount = 0;
+let commentPageCountMax = 2; // 임의
 let pageTotal = 3; // 임의
+
 let isDrawCard = false;
+
 let cardList = new Array();
+let commentList = new Array();
 
 const insert_btn = document.getElementById('insert_btn');
 const update_btn = document.getElementById('update_btn');
@@ -72,6 +78,7 @@ function getParam() {
 function loadDetailPage() {
   const cardId = getParam();
   
+  // 카드
   axios({
     method: 'get',
     url: 'http://54.180.95.53:8000/card',
@@ -86,13 +93,16 @@ function loadDetailPage() {
   }).catch((Error)=>{
       console.log(Error);
   })
+
+  // 댓글
+  getCommentList();
+
 }
 
 // 카드 상세보기 그리기
 function drawDetailCard(writer, postDate, content) {
   let cardDetail = document.getElementById('card_detail');
   let cardInfo = document.getElementById('card_info');
-
   let cardWriter = document.createElement('p');
   let cardPostDate = document.createElement('p');
   let cardContent = document.createElement('p');
@@ -111,6 +121,68 @@ function drawDetailCard(writer, postDate, content) {
   cardInfo.appendChild(cardPostDate);
   cardDetail.appendChild(cardContent);
 }
+
+function getCommentList() {
+  const cardId = getParam();
+
+  if (commentPageCount == commentPageCountMax) {
+    alert("마지막 페이지 입니다.");
+  } else {
+    axios({
+      method: 'get',
+      url: 'http://54.180.95.53:8000/comment',
+      params: {
+        "page":commentPageCount,
+        "cardId":cardId
+      }
+    }, { withCredentials : true })
+      .then((Response)=>{
+        console.log(Response.data);
+        commentList = Response.data;
+        
+        for (i = 0; i < commentList.length; i++) {
+          drawComments(cardId, commentList[i].commentId, commentList[i].name, commentList[i].postDate, commentList[i].content);
+        }
+    }).catch((Error)=>{
+        console.log(Error);
+    })
+  
+    commentPageCount++;
+  }
+}
+
+// 댓글 그리기
+function drawComments(cardId, commentId, writer, postDate, content) {
+  let commentList = document.getElementById("comment_list");
+  let comment = document.createElement('div');
+  let commentTop = document.createElement('div');
+  let commentWriter = document.createElement('p');
+  let commentContent = document.createElement('p');
+  let commentPostDate = document.createElement('p');
+  let deleteBtnImg = document.createElement('img');
+
+  comment.setAttribute('class', 'comment');
+  commentTop.setAttribute('class', 'comment_top');
+
+  commentWriter.setAttribute('class', 'comment_writer');
+  commentWriter.innerHTML = writer;
+  commentContent.setAttribute('class', 'comment_content');
+  commentContent.innerHTML = content;
+  commentPostDate.setAttribute('class', 'comment_post_date');
+  commentPostDate.innerHTML = postDate;
+
+  deleteBtnImg.setAttribute('id', 'comment_delete_btn');
+  deleteBtnImg.setAttribute('onClick', 'deleteComment(' + commentId, cardId + ');');
+  deleteBtnImg.src = "../img/delete_btn.png";
+
+  commentList.appendChild(comment);
+  comment.appendChild(commentTop);
+  comment.appendChild(commentContent);
+  comment.appendChild(commentPostDate);
+  commentTop.appendChild(commentWriter);
+  commentTop.appendChild(deleteBtnImg);
+}
+
 
 // 카드 수정 페이지 (completed)
 function loadEditPage() {
@@ -520,12 +592,12 @@ function insertComment() {
 }
 
 // 댓글 삭제
-function deleteComment() {
+function deleteComment(commentId, cardId) {
   axios({
     method: 'delete',
     url: 'http://54.180.95.53:8000/comment',
     data: {
-      "comment_id":""
+      "comment_id":commentId
     }
   }, { withCredentials : true })
     .then((Response)=>{
@@ -533,7 +605,7 @@ function deleteComment() {
         console.log(Response.data);
       } else {
         alert("댓글이 삭제되었습니다.");
-        location.href="";
+        location.href="card_detail.html?id=" + cardId +'"';
       }
   }).catch((Error)=>{
       console.log(Error);
