@@ -539,3 +539,8 @@ function deleteComment() {
       console.log(Error);
   })
 }
+
+// 뒤로가기
+function goBack() {
+  window.history.back()
+}
