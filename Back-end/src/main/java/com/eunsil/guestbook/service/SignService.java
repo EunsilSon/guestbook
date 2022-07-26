@@ -24,10 +24,14 @@ public class SignService {
     }
 
     public String signUp(String name, String pw, String tel) {
-        User user = userRepository.findUserByName(name);
+        User user;
+        User username = userRepository.findUserByName(name);
+        User telephone = userRepository.findUserByTelephone(tel);
 
-        if (user != null) {
-            return "Existed";
+        if (username != null) {
+            return "Existed Username";
+        } else if (telephone != null) {
+            return "Existed telephone";
         } else {
             user = User.builder()
                     .name(name)

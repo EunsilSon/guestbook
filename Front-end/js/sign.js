@@ -89,8 +89,10 @@ function signUp() {
       }
     }, { withCredentials : true })
       .then((Response)=>{
-        if (Response.data == "Existed") {
+        if (Response.data == "Existed Username") {
           alert("존재하는 아이디입니다.");  
+        } else if (Response.data == "Existed telephone") {
+          alert("존재하는 연락처입니다.");
         } else {
           alert("회원가입에 성공했습니다.");
           form.submit();
