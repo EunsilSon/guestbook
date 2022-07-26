@@ -144,6 +144,10 @@ textarea:focus {
   cursor: pointer;
 }
 
+#comment_page_btn {
+  cursor: pointer;
+}
+
 .back {
   cursor: pointer;
 }

@@ -22,6 +22,8 @@ const allCardsPagePrev = document.getElementById('allCardsPagePrev');
 const allCardsPageNext = document.getElementById('allCardsPageNext');
 const myCardsPagePrev = document.getElementById('myCardsPagePrev');
 const myCardsPageNext = document.getElementById('myCardsPageNext');
+let pageCountElement = document.getElementById('pageCount');
+let myPageCountElement = document.getElementById('myPageCount');
 
 if (document.getElementById("insert_btn")) {
   insert_btn.addEventListener('click', () => insertCard());
@@ -399,18 +401,36 @@ function deleteCard(cardId) {
 
 // 모든 카드 (completed)
 function getAllCards(option) {
+  // 카드 개수 가져오기
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/all_total'
+  }, { withCredentials : true })
+    .then((Response)=>{
+      pageMax = Math.ceil(Response.data / 5); // 소수점 이하 숫자를 올림함
+
+      pageMaxElement = document.getElementById('pageMax');
+      pageMaxElement.innerText = pageMax;
+      pageCountElement.innerText = pageCount+1;
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+
   if (option == "prev") {
+    console.log(pageCount);
     if (pageCount <= 0) {
       alert("첫 페이지 입니다.");
     } else {
       pageCount--;
+      pageCountElement.innerText = pageCount;
       getAllCardList();
     }
   } else {
-    if ((pageCountMax - pageCount) == 1) {
+    if ((pageMax - pageCount) == 1) {
       alert("마지막 페이지 입니다.");
     } else {
       pageCount++;
+      pageCountElement.innerText = pageCount;
       getAllCardList();
     }
   }
@@ -440,6 +460,23 @@ function getAllCardList() {
 
 // 내가 쓴 카드 (completed)
 function getMyCards(option) {
+  // 카드 개수 가져오기
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/my_total',
+    params: {
+      "username":username
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      myPageMax = Math.ceil(Response.data / 5);
+      myPageMaxElement = document.getElementById('myPageMax');
+      myPageMaxElement.innerText = myPageMax;
+      myPageCountElement.innerText = myPageCount+1;
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+
   if (option == "prev") {
     if (myPageCount <= 0) {
       alert("첫 페이지 입니다.");
