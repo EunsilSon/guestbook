@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/book.css">
     <link rel="stylesheet" href="../css/card.css">
   </head>
-  <body>
+  <body onload="setCardInfo();">
     <header class="book_title">
       GUEST BOOK
     </header>
@@ -24,15 +24,15 @@
           <ul id="card_count">
             <li>
               카드
-              <b>0</b>
+              <b id="card_total">0</b>
             </li>
             <li>
               확인 완료
-              <b>0</b>
+              <b id="card_true">0</b>
             </li>
             <li>
               확인 전
-              <b>0</b>
+              <b id="card_false">0</b>
             </li>
           </ul>
           <p><b>손은실</b><br>안녕하세요. 방문해주셔서 고맙습니다.</p>
@@ -48,5 +48,7 @@
         <p>로그아웃 상태입니다.<br>카드를 남기시려면 로그인을 해주세요.</p>
       </section>
     </article>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/card.js"></script>
   </body>
 </html>

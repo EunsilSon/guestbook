@@ -1,5 +1,9 @@
 let username;
 
+let cardTotal;
+let cardStatusTrue; // 읽음
+let cardStatusFalse; // 안 읽음
+
 let pageCount = -1;
 let myPageCount = -1;
 let commentPageCount = 0;
@@ -24,6 +28,9 @@ const myCardsPagePrev = document.getElementById('myCardsPagePrev');
 const myCardsPageNext = document.getElementById('myCardsPageNext');
 let pageCountElement = document.getElementById('pageCount');
 let myPageCountElement = document.getElementById('myPageCount');
+let cardTotalElement = document.getElementById('card_total');
+let cardTrueElement = document.getElementById('card_true');
+let cardFalseElement = document.getElementById('card_false');
 
 if (document.getElementById("insert_btn")) {
   insert_btn.addEventListener('click', () => insertCard());
@@ -60,10 +67,12 @@ if (document.getElementById('myCardsPagePrev')) {
 if (document.getElementById('myCardsPageNext')) {
   myCardsPageNext.addEventListener('click', () => getMyCards("next"));
 }
+
 // 현재 접속한 사용자
 if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
 }
+
 
 // url에 있는 card id 가져오기
 function getParam() {
@@ -84,7 +93,6 @@ function loadDetailPage() {
     }
   }, { withCredentials : true })
     .then((Response)=>{
-      console.log(Response.data);
       cardList = Response.data;
       drawDetailCard(cardList.name, cardList.postDate, cardList.content);
   }).catch((Error)=>{
@@ -132,7 +140,6 @@ function getCommentList() {
     }
   }, { withCredentials : true })
     .then((Response)=>{
-      console.log(Response.data);
       commentPageMax = Response.data / 10;
   }).catch((Error)=>{
       console.log(Error);
@@ -274,7 +281,6 @@ function loadEditPage() {
 
 // 카드 작성 (completed)
 function insertCard() {
-  console.log(username);
   const cardContent = document.getElementById('card_content').value;
   
   if (cardContent.value == '') {
@@ -401,6 +407,8 @@ function deleteCard(cardId) {
 
 // 모든 카드 (completed)
 function getAllCards(option) {
+  setCardInfo();
+
   // 카드 개수 가져오기
   axios({
     method: 'get',
@@ -417,7 +425,6 @@ function getAllCards(option) {
   })
 
   if (option == "prev") {
-    console.log(pageCount);
     if (pageCount <= 0) {
       alert("첫 페이지 입니다.");
     } else {
@@ -497,13 +504,10 @@ function getMyCards(option) {
 function getMyCardList() {
   axios({
     method: 'get',
-    url: 'http://54.180.95.53:8000/card/search',
+    url: 'http://54.180.95.53:8000/card/my',
     params: {
       "page":myPageCount,
-      "username":username,
-      "location":"",
-      "option":"",
-      "content":""
+      "username":username
     }
   }, { withCredentials : true })
     .then((Response)=>{
