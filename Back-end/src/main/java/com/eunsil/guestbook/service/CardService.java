@@ -125,4 +125,13 @@ public class CardService {
         User user = userRepository.findUserByName(username);
         return cardRepository.findAllByUserOrderByIdDesc(user).size();
     }
+
+    public String updateStatus(String cardId) {
+        if (cardRepository.updateCardStatusByCardId(cardId) == 1) {
+            return "ok";
+        } else {
+            return "failed";
+        }
+    }
+
 }

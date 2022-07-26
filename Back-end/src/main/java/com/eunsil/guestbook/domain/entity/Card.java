@@ -26,6 +26,9 @@ public class Card {
     @Column(nullable = false)
     public String content;
 
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    public boolean status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     public User user;

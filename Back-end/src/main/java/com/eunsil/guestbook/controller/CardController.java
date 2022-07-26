@@ -62,4 +62,8 @@ public class CardController {
         return cardService.getMyTotal(username);
     }
 
+
+    @PatchMapping("/card/status")
+    public String updateStatus(@RequestParam("card_id") String cardId) { return cardService.updateStatus(cardId); }
+
 }
