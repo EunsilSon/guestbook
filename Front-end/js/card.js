@@ -356,6 +356,7 @@ function drawDetailCard(writer, postDate, content) {
 
   cardContent.setAttribute('id', 'card_content');
   cardContent.setAttribute('class', 'card_content');
+  cardContent.setAttribute('readonly', 'readonly');
   cardContent.innerHTML = content;
   
   cardDetail.appendChild(cardInfo);
@@ -384,60 +385,6 @@ function deleteCard(cardId) {
   }).catch((Error)=>{
       console.log(Error);
   })
-}
-
-
-// 카드 검색
-function searchCard() {
-  // TODO: 검색 바에 option 선택할 radio btn 만들기
-  const searchOption = document.getElementById('search_option')
-  const searchContent = document.getElementById('search_content')
-  var fileName = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 30);
-
-  if (fileName == 'all_cards.html') {
-    axios({
-      method: 'get',
-      url: 'http://54.180.95.53:8000/card',
-      params: {
-        "location":"all",
-        "option":searchOption, // user OR content
-        "username":"",
-        "content":searchContent
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        if (Response.data == "Not Existed Card") {
-          alert("일치하는 카드가 없습니다."); // TODO: CSS로 표시
-          console.log(Response.data);
-        } else {
-          console.log(Response.data);
-        }
-    }).catch((Error)=>{
-        console.log(Error);
-    })
-  } else {
-    // TODO: '내가 쓴 카드' 에서는 '내용'으로만 검색하기
-    axios({
-      method: 'get',
-      url: 'http://54.180.95.53:8000/card',
-      params: {
-        "location":"user",
-        "option":"content",
-        "username":userName,
-        "content":searchContent
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        if (Response.data == "Not Existed Card") {
-          alert("일치하는 카드가 없습니다."); // TODO: CSS로 표시
-          console.log(Response.data);
-        } else {
-          console.log(Response.data);
-        }
-    }).catch((Error)=>{
-        console.log(Error);
-    })
-  }
 }
 
 // 모든 카드 (completed)
@@ -618,4 +565,75 @@ function deleteCards(div) {
 // 뒤로가기
 function goBack() {
   window.history.back()
+}
+
+
+// 카드 검색
+function searchCard() {
+  let selectedOptionParam;
+
+  // 선택된 옵션 가져오기 + 값 확인 ('모든 카드' 에서만 사용)
+  if (document.getElementById("search_option")) {
+    const searchOption = document.getElementById("search_option");
+    const selectedOption = searchOption.options[searchOption.selectedIndex].value;
+
+    if (selectedOption == "none") {
+      alert("검색 옵션을 선택하세요.");
+      window.location.reload();
+    } else {
+      selectedOptionParam = (selectedOption == "username") ? selectedOptionParam = "username" : selectedOptionParam = "content";
+    }
+  }
+ 
+  // 현재 경로 가져오기
+  var fileName = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 30);
+
+  // 입력 값 가져오기
+  const searchContent = document.getElementById("search_content").value;
+  
+
+  if (fileName == 'all_cards.html') {
+    axios({
+      method: 'get',
+      url: 'http://54.180.95.53:8000/card/search',
+      params: {
+        "location":"all",
+        "option":selectedOptionParam, // 아이디 OR 내용
+        "username":username,
+        "content":searchContent
+      }
+    }, { withCredentials : true })
+      .then((Response)=>{
+        if (Response.data == "Not Existed Card") {
+          alert("일치하는 카드가 없습니다.");
+          console.log(Response.data);
+        } else {
+          console.log(Response.data);
+        }
+    }).catch((Error)=>{
+        console.log(Error);
+    })
+  } else {
+    // '내가 쓴 카드' 에서는 '내용'으로만 검색하기
+    axios({
+      method: 'get',
+      url: 'http://54.180.95.53:8000/card/search',
+      params: {
+        "location":"user",
+        "option":"content",
+        "username":username,
+        "content":searchContent
+      }
+    }, { withCredentials : true })
+      .then((Response)=>{
+        if (Response.data == "Not Existed Card") {
+          alert("일치하는 카드가 없습니다.");
+          console.log(Response.data);
+        } else {
+          console.log(Response.data);
+        }
+    }).catch((Error)=>{
+        console.log(Error);
+    })
+  }
 }
