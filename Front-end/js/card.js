@@ -160,7 +160,6 @@ function drawComments(cardId, commentId, writer, postDate, content) {
   let commentWriter = document.createElement('p');
   let commentContent = document.createElement('p');
   let commentPostDate = document.createElement('p');
-  let deleteBtnImg = document.createElement('img');
 
   comment.setAttribute('class', 'comment');
   commentTop.setAttribute('class', 'comment_top');
@@ -172,16 +171,72 @@ function drawComments(cardId, commentId, writer, postDate, content) {
   commentPostDate.setAttribute('class', 'comment_post_date');
   commentPostDate.innerHTML = postDate;
 
-  deleteBtnImg.setAttribute('id', 'comment_delete_btn');
-  deleteBtnImg.src = "../img/delete_btn.png";
-  deleteBtnImg.setAttribute('onclick', 'deleteComment(' + commentId + ',' + cardId + String.fromCharCode(41));
-
   commentList.appendChild(comment);
   comment.appendChild(commentTop);
   comment.appendChild(commentContent);
   comment.appendChild(commentPostDate);
   commentTop.appendChild(commentWriter);
-  commentTop.appendChild(deleteBtnImg);
+
+  if (writer == username) {
+    let deleteBtnImg = document.createElement('img');
+    deleteBtnImg.setAttribute('id', 'comment_delete_btn');
+    deleteBtnImg.src = "../img/delete_btn.png";
+    deleteBtnImg.setAttribute('onclick', 'deleteComment(' + commentId + ',' + cardId + String.fromCharCode(41));
+    commentTop.appendChild(deleteBtnImg);
+  }
+}
+
+// 댓글 작성
+function insertComment() {
+  const cardId = getParam();
+  const newComment = document.getElementById('new_comment').value;
+
+  if (newComment.value == '') {
+    alert("댓글을 작성하세요.");
+  } else {
+    axios({
+      method: 'post',
+      url: 'http://54.180.95.53:8000/comment',
+      data: {
+        "card_id":cardId,
+        "name": username,
+        "content": newComment
+      }
+    }, { withCredentials : true })
+      .then((Response)=>{
+        if (Response.data == "fail") {
+          console.log(Response.data);
+        } else {
+          alert("댓글이 작성되었습니다.");
+          location.href="card_detail.html?id=" + cardId;
+          newComment.value = '';
+        }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+  }
+
+}
+
+// 댓글 삭제
+function deleteComment(commentId, cardId) {
+  axios({
+    method: 'delete',
+    url: 'http://54.180.95.53:8000/comment',
+    data: {
+      "comment_id":commentId
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      if (Response.data == "Not Existed Comment") {
+        console.log(Response.data);
+      } else {
+        alert("댓글이 삭제되었습니다.");
+        location.href="card_detail.html?id=" + cardId;
+      }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
 }
 
 
@@ -558,59 +613,6 @@ function deleteCards(div) {
   while(div.hasChildNodes()) {
     div.removeChild(div.firstChild);
   }
-}
-
-// 댓글 작성
-function insertComment() {
-  const cardId = getParam();
-  const newComment = document.getElementById('new_comment').value;
-
-  if (newComment.value == '') {
-    alert("댓글을 작성하세요.");
-  } else {
-    axios({
-      method: 'post',
-      url: 'http://54.180.95.53:8000/comment',
-      data: {
-        "card_id":cardId,
-        "name": username,
-        "content": newComment
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        if (Response.data == "fail") {
-          console.log(Response.data);
-        } else {
-          alert("댓글이 작성되었습니다.");
-          location.href="card_detail.html?id=" + cardId;
-          newComment.value = '';
-        }
-  }).catch((Error)=>{
-      console.log(Error);
-  })
-  }
-
-}
-
-// 댓글 삭제
-function deleteComment(commentId, cardId) {
-  axios({
-    method: 'delete',
-    url: 'http://54.180.95.53:8000/comment',
-    data: {
-      "comment_id":commentId
-    }
-  }, { withCredentials : true })
-    .then((Response)=>{
-      if (Response.data == "Not Existed Comment") {
-        console.log(Response.data);
-      } else {
-        alert("댓글이 삭제되었습니다.");
-        location.href="card_detail.html?id=" + cardId;
-      }
-  }).catch((Error)=>{
-      console.log(Error);
-  })
 }
 
 // 뒤로가기
