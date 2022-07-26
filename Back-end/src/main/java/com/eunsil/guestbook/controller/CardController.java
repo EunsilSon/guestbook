@@ -5,6 +5,7 @@ import com.eunsil.guestbook.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,5 +66,10 @@ public class CardController {
 
     @PatchMapping("/card/status")
     public String updateStatus(@RequestParam("card_id") String cardId) { return cardService.updateStatus(cardId); }
+
+    @GetMapping("/card/count")
+    public HashMap<String, Long> getCardCount() {
+        return cardService.getCardCount();
+    }
 
 }

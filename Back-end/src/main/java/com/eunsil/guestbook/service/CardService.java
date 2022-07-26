@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -132,6 +133,15 @@ public class CardService {
         } else {
             return "failed";
         }
+    }
+
+    public HashMap<String, Long> getCardCount() {
+        HashMap<String, Long> countList = new HashMap<>();
+        countList.put("total", (long)cardRepository.findAll().size());
+        countList.put("true", cardRepository.countByStatusTrue());
+        countList.put("false", cardRepository.countByStatusFalse());
+
+        return countList;
     }
 
 }
