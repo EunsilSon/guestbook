@@ -59,19 +59,19 @@ public class CardService {
         }
     }
 
-    public List<CardDTO> search(Integer page, String location, String option, String name, String content) {
-        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
+    public List<CardDTO> search(String location, String option, String name, String content) {
         List<Card> cardList;
-        if (location == "all") { // 모든 카드 페이지
-            if (option == "username") { // 사용자 명으로 찾기
+
+        if (location.equals("all")) { // 모든 카드 페이지
+            if (option.equals("username")) { // 사용자 명으로 찾기
                 User user = userRepository.findUserByName(content);
-                cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
+                cardList = cardRepository.findAllByUserOrderByIdDesc(user);
             } else { // 내용으로 찾기
                 cardList = cardRepository.findAllByContent(content);
             }
         } else { // 내 카드 페이지 - 내용으로 찾기
             User user = userRepository.findUserByName(name);
-            cardList = cardRepository.findAllByUserByContentOrderByIdDesc(content, user, pageable);
+            cardList = cardRepository.findAllByUserByContentOrderByIdDesc(content, user);
         }
 
         List<CardDTO> cardDTOList = new ArrayList<>();
@@ -115,5 +115,14 @@ public class CardService {
                 .postDate(card.getPostDate())
                 .build();
         return cardDTO;
+    }
+
+    public int getAllTotal() {
+        return cardRepository.findAll().size();
+    }
+
+    public int getMyTotal(String username) {
+        User user = userRepository.findUserByName(username);
+        return cardRepository.findAllByUserOrderByIdDesc(user).size();
     }
 }

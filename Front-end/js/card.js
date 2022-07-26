@@ -3,8 +3,10 @@ let username;
 let pageCount = -1;
 let myPageCount = -1;
 let commentPageCount = 0;
-let commentPageCountMax = 2; // 임의
-let pageTotal = 3; // 임의
+
+let pageMax; // 모든 카드
+let myPageMax; // 내가 쓴 카드
+let commentPageMax; // 댓글
 
 let isDrawCard = false;
 
@@ -14,19 +16,12 @@ let commentList = new Array();
 const insert_btn = document.getElementById('insert_btn');
 const update_btn = document.getElementById('update_btn');
 const search_btn = document.getElementById('search_btn');
-
 const commentInsertBtn = document.getElementById('comment_insert_btn');
 const commentDeleteBtn = document.getElementById('comment_delete_btn');
-
 const allCardsPagePrev = document.getElementById('allCardsPagePrev');
 const allCardsPageNext = document.getElementById('allCardsPageNext');
 const myCardsPagePrev = document.getElementById('myCardsPagePrev');
 const myCardsPageNext = document.getElementById('myCardsPageNext');
-
-
-if (localStorage.getItem('username')) {
-  username = localStorage.getItem('username');
-}
 
 if (document.getElementById("insert_btn")) {
   insert_btn.addEventListener('click', () => insertCard());
@@ -48,10 +43,6 @@ if (document.getElementById("comment_insert_btn")) {
   commentInsertBtn.addEventListener('click', () => insertComment());
 }
 
-// if (document.getElementById("comment_delete_btn")) {
-//   commentDeleteBtn.addEventListener('click', () => deleteComment());
-// }
-
 if (document.getElementById('allCardsPagePrev')) {
   allCardsPagePrev.addEventListener('click', () => getAllCards("prev"));
 }
@@ -66,6 +57,10 @@ if (document.getElementById('myCardsPagePrev')) {
 
 if (document.getElementById('myCardsPageNext')) {
   myCardsPageNext.addEventListener('click', () => getMyCards("next"));
+}
+// 현재 접속한 사용자
+if (localStorage.getItem('username')) {
+  username = localStorage.getItem('username');
 }
 
 // url에 있는 card id 가져오기
@@ -126,7 +121,22 @@ function drawDetailCard(writer, postDate, content) {
 function getCommentList() {
   const cardId = getParam();
 
-  if (commentPageCount == commentPageCountMax) {
+  // 댓글 개수 가져오기
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/comment/total',
+    params: {
+      "cardId":cardId
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      console.log(Response.data);
+      commentPageMax = Response.data / 10;
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+
+  if (commentPageCount == commentPageMax) {
     alert("마지막 페이지 입니다.");
   } else {
     axios({
@@ -330,7 +340,7 @@ function drawUpdateCard(writer, postDate, content) {
   cardPostDate.innerHTML = postDate;
 
   cardContent.setAttribute('id', 'card_content');
-  cardContent.setAttribute('class', 'card_content');
+  cardContent.setAttribute('class', 'edit_card_content');
   cardContent.innerHTML = content;
   
   cardDetail.appendChild(cardInfo);
@@ -397,7 +407,7 @@ function getAllCards(option) {
       getAllCardList();
     }
   } else {
-    if ((pageTotal - pageCount) == 1) {
+    if ((pageCountMax - pageCount) == 1) {
       alert("마지막 페이지 입니다.");
     } else {
       pageCount++;
@@ -438,7 +448,7 @@ function getMyCards(option) {
       getMyCardList();
     }
   } else {
-    if ((pageTotal - myPageCount) == 1) {
+    if ((myPageMax - myPageCount) == 1) {
       alert("마지막 페이지 입니다.");
     } else {
       myPageCount++;

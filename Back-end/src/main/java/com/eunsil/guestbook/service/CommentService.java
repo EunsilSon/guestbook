@@ -68,4 +68,9 @@ public class CommentService {
         }
         return commentDtoList;
     }
+
+    public int getCommentTotal(String cardId) {
+        List<Comment> comments = commentRepository.findAllByCardId(cardId);
+        return comments.size();
+    }
 }

@@ -36,4 +36,10 @@ public class CommentController {
     public List<CommentDTO> get(@RequestParam Integer page, String cardId) {
         return commentService.get(cardId, page);
     }
+
+    @GetMapping("/comment/total")
+    @ResponseBody
+    public int get(@RequestParam String cardId) {
+        return commentService.getCommentTotal(cardId);
+    }
 }

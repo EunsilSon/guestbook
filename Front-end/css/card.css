@@ -68,6 +68,15 @@ body {
   resize: none;
 }
 
+.edit_card_content {
+  width: 500px;
+  height: 250px;
+  margin-top: 10px;
+  border: 3px solid indianred;
+  border-radius: 5px;
+  resize: none;
+}
+
 textarea:focus {
   outline: none;
 }

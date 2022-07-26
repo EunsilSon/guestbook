@@ -18,4 +18,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     void deleteById(String comment_id);
 
     List<Comment> findByCardOrderByIdDesc(Card card, Pageable pageable);
+
+    @Query(value = "SELECT * FROM comment WHERE card_id = :cardId", nativeQuery = true)
+    List<Comment> findAllByCardId(String cardId);
 }

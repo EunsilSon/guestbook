@@ -1,12 +1,10 @@
 package com.eunsil.guestbook.controller;
 
 import com.eunsil.guestbook.domain.dto.CardDTO;
-import com.eunsil.guestbook.domain.entity.Card;
 import com.eunsil.guestbook.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.data.domain.Pageable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,8 +38,8 @@ public class CardController {
 
     @GetMapping("/card/search")
     @ResponseBody
-    public List<CardDTO> search(@RequestParam("page") Integer page, String location, String option, String username, String content) {
-        return cardService.search(page, location, option, username, content);
+    public List<CardDTO> search(@RequestParam String location, String option, String username, String content) {
+        return cardService.search(location, option, username, content);
     }
 
     @GetMapping("/card/all")
@@ -52,6 +50,16 @@ public class CardController {
     @GetMapping("/card")
     public CardDTO getDetail(@RequestParam("id") String cardId) {
         return cardService.getDetail(cardId);
+    }
+
+    @GetMapping("/card/all_total")
+    public int getAllTotal() {
+        return cardService.getAllTotal();
+    }
+
+    @GetMapping("/card/my_total")
+    public int getAllTotal(@RequestParam String username) {
+        return cardService.getMyTotal(username);
     }
 
 }
