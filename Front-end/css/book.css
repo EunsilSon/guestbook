@@ -147,8 +147,8 @@ article {
   height: 27px;
   text-align: center;
   border: 0.5px solid gray;
-  border-radius: 20px;
-  background-color: #EDEDED;
+  border-radius: 3px;
+  background-color: #fafafa;
 }
 
 .search img{
@@ -156,6 +156,18 @@ article {
   position: relative;
   top: 4px;
   right: 33px;
+}
+
+.search_option {
+  color: gray;
+  border: 0.5px solid gray;
+  border-radius: 3px;
+  background-color: #fafafa;
+  margin-right: 3px;
+}
+
+#search_btn {
+  cursor:pointer;
 }
 
 .back {
