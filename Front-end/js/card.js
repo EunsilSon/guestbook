@@ -604,11 +604,18 @@ function searchCard() {
       }
     }, { withCredentials : true })
       .then((Response)=>{
-        if (Response.data == "Not Existed Card") {
+        if (Response.data.length == 0) {
           alert("일치하는 카드가 없습니다.");
           console.log(Response.data);
         } else {
           console.log(Response.data);
+
+          cardList = Response.data;
+          deleteCards(document.getElementById('card_list'));
+
+          for (i = 0; i < Response.data.length; i++) {
+            drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+          }
         }
     }).catch((Error)=>{
         console.log(Error);
@@ -626,11 +633,18 @@ function searchCard() {
       }
     }, { withCredentials : true })
       .then((Response)=>{
-        if (Response.data == "Not Existed Card") {
+        if (Response.data.length == 0) {
           alert("일치하는 카드가 없습니다.");
           console.log(Response.data);
         } else {
           console.log(Response.data);
+
+          cardList = Response.data;
+          deleteCards(document.getElementById('card_list'));
+
+          for (i = 0; i < Response.data.length; i++) {
+            drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+          }
         }
     }).catch((Error)=>{
         console.log(Error);
