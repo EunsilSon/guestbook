@@ -3,13 +3,13 @@ let prevPage;
 
 let pageCount = -1;
 let myPageCount = -1;
+let searchPageCount = -1;
 let commentPageCount = 0;
-let searchPage = -1;
 
 let pageMax; // 모든 카드
 let myPageMax; // 내가 쓴 카드
+let searchPageMax; // 카드 검색
 let commentPageMax; // 댓글
-let searchPageMax; // 검색
 
 let isDrawCard = false;
 
@@ -70,6 +70,11 @@ if (document.getElementById('myCardsPageNext')) {
 // 현재 접속한 사용자
 if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
+}
+
+// 카드 검색 시 페이지 변수 초기화
+function setSearchPageCount() {
+  searchPageCount = -1;
 }
 
 // 카드 개수 집계
@@ -463,46 +468,80 @@ function deleteCard(cardId) {
   })
 }
 
-// 모든 카드 (completed)
-function getAllCards(option) {
-  localStorage.setItem('prevPage', "all");
-  setCardInfo();
-
-  // 카드 개수 가져오기
+// 카드 총 개수
+function getAllCardTotal() {
   axios({
     method: 'get',
     url: 'http://54.180.95.53:8000/card/all_total'
   }, { withCredentials : true })
     .then((Response)=>{
-      pageMax = Math.ceil(Response.data / 5); // 소수점 이하 숫자를 올림함
+      allCardTotal = Response.data;
+      pageMax = Math.ceil(allCardTotal / 5); // 소수점 이하 숫자를 올림함
 
       pageMaxElement = document.getElementById('pageMax');
       pageMaxElement.innerText = pageMax;
-      pageCountElement.innerText = pageCount+1;
+      if (pageMax != 0) {
+        pageCountElement.innerText = pageCount + 1;
+      }
+
   }).catch((Error)=>{
       console.log(Error);
   })
+}
+
+// 내가 쓴 카드 총 개수
+function getMyCardTotal() {
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/my_total',
+    params: {
+      "username":username
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      myCardTotal = Response.data;
+
+      myPageMax = Math.ceil(myCardTotal / 5);
+      myPageMaxElement = document.getElementById('myPageMax');
+      myPageMaxElement.innerText = myPageMax;
+      if (myPageMax != 0) {
+        myPageCountElement.innerText = myPageCount + 1;
+      }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+}
+
+// 모든 카드 (completed)
+function getAllCards(option) {
+  setSearchPageCount();
+
+  localStorage.setItem('prevPage', "all"); // card_detail에서 뒤로가기를 위한 경로 저장
+  setCardInfo(); // 카드 확인 유무 개수
+  getAllCardTotal(); // 페이지 표시를 위한 카드 총 개수
 
   if (option == "prev") {
     if (pageCount <= 0) {
       alert("첫 페이지 입니다.");
     } else {
       pageCount--;
-      pageCountElement.innerText = pageCount;
       getAllCardList();
     }
-  } else {
+  }
+  
+  if (option == "next") {
     if ((pageMax - pageCount) == 1) {
       alert("마지막 페이지 입니다.");
     } else {
       pageCount++;
-      pageCountElement.innerText = pageCount;
       getAllCardList();
     }
   }
 }
 
 function getAllCardList() {
+  setSearchPageCount();
+
   axios({
     method: 'get',
     url: 'http://54.180.95.53:8000/card/all',
@@ -526,25 +565,10 @@ function getAllCardList() {
 
 // 내가 쓴 카드 (completed)
 function getMyCards(option) {
+  setSearchPageCount();
   localStorage.setItem('prevPage', "my");
   setCardInfo();
-
-  // 카드 개수 가져오기
-  axios({
-    method: 'get',
-    url: 'http://54.180.95.53:8000/card/my_total',
-    params: {
-      "username":username
-    }
-  }, { withCredentials : true })
-    .then((Response)=>{
-      myPageMax = Math.ceil(Response.data / 5);
-      myPageMaxElement = document.getElementById('myPageMax');
-      myPageMaxElement.innerText = myPageMax;
-      myPageCountElement.innerText = myPageCount+1;
-  }).catch((Error)=>{
-      console.log(Error);
-  })
+  getMyCardTotal();
 
   if (option == "prev") {
     if (myPageCount <= 0) {
@@ -553,7 +577,9 @@ function getMyCards(option) {
       myPageCount--;
       getMyCardList();
     }
-  } else {
+  }
+  
+  if (option == "next") {
     if ((myPageMax - myPageCount) == 1) {
       alert("마지막 페이지 입니다.");
     } else {
@@ -564,6 +590,7 @@ function getMyCards(option) {
 }
 
 function getMyCardList() {
+  setSearchPageCount();
   axios({
     method: 'get',
     url: 'http://54.180.95.53:8000/card/my',
@@ -677,7 +704,6 @@ function deleteCards(div) {
 
 // 뒤로가기
 function goBack() {
-  // window.history.back();
   if (localStorage.getItem('prevPage') == "all") {
     location.href = "all_cards.html";
   } else {
@@ -688,9 +714,11 @@ function goBack() {
 
 // 카드 검색
 function searchCard() {
+  setSearchPageCount();
+  
+  // 선택된 옵션 가져오기 + 값 확인 ('모든 카드' 에서만 사용)
   let selectedOptionParam;
 
-  // 선택된 옵션 가져오기 + 값 확인 ('모든 카드' 에서만 사용)
   if (document.getElementById("search_option")) {
     const searchOption = document.getElementById("search_option");
     const selectedOption = searchOption.options[searchOption.selectedIndex].value;
@@ -711,63 +739,68 @@ function searchCard() {
   
 
   if (fileName == 'all_cards.html') {
-    axios({
-      method: 'get',
-      url: 'http://54.180.95.53:8000/card/search',
-      params: {
-        "page":searchPage,
-        "location":"all",
-        "option":selectedOptionParam, // 아이디 OR 내용
-        "username":username,
-        "content":searchContent
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        if (Response.data.length == 0) {
-          alert("일치하는 카드가 없습니다.");
-          console.log(Response.data);
-        } else {
-          console.log(Response.data);
-
-          cardList = Response.data;
-          deleteCards(document.getElementById('card_list'));
-
-          for (i = 0; i < Response.data.length; i++) {
-            drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
-          }
-        }
-    }).catch((Error)=>{
-        console.log(Error);
-    })
+    searchAllCards(selectedOptionParam, searchContent);
   } else {
-    // '내가 쓴 카드' 에서는 '내용'으로만 검색하기
-    axios({
-      method: 'get',
-      url: 'http://54.180.95.53:8000/card/search',
-      params: {
-        "page":searchPage,
-        "location":"user",
-        "option":"content",
-        "username":username,
-        "content":searchContent
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        if (Response.data.length == 0) {
-          alert("일치하는 카드가 없습니다.");
-          console.log(Response.data);
-        } else {
-          console.log(Response.data);
-
-          cardList = Response.data;
-          deleteCards(document.getElementById('card_list'));
-
-          for (i = 0; i < Response.data.length; i++) {
-            drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
-          }
-        }
-    }).catch((Error)=>{
-        console.log(Error);
-    })
+    searchMyCards(searchContent) ;
   }
+}
+
+function searchAllCards(selectedOptionParam, searchContent) {
+  searchPageCount++;
+
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/search',
+    params: {
+      "page":searchPageCount,
+      "location":"all",
+      "option":selectedOptionParam, // 아이디 OR 내용
+      "username":username,
+      "content":searchContent
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      if (Response.data.length == 0) {
+        alert("일치하는 카드가 없습니다.");
+      } else {
+        cardList = Response.data;
+        deleteCards(document.getElementById('card_list'));
+
+        for (i = 0; i < Response.data.length; i++) {
+          drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+        }
+      }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+}
+
+function searchMyCards(searchContent) {
+  searchPageCount++;
+
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/search',
+    params: {
+      "page":searchPageCount,
+      "location":"user",
+      "option":"content",
+      "username":username,
+      "content":searchContent
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      if (Response.data.length == 0) {
+        alert("일치하는 카드가 없습니다.");
+      } else {
+        cardList = Response.data;
+        deleteCards(document.getElementById('card_list'));
+
+        for (i = 0; i < Response.data.length; i++) {
+          drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+        }
+      }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
 }

@@ -168,6 +168,11 @@ article {
 
 #search_btn {
   cursor:pointer;
+  color: gray;
+}
+
+.search_page {
+  text-align: center;
 }
 
 .back {
