@@ -1,16 +1,15 @@
 let username;
-
-let cardTotal;
-let cardStatusTrue; // 읽음
-let cardStatusFalse; // 안 읽음
+let prevPage;
 
 let pageCount = -1;
 let myPageCount = -1;
 let commentPageCount = 0;
+let searchPage = -1;
 
 let pageMax; // 모든 카드
 let myPageMax; // 내가 쓴 카드
 let commentPageMax; // 댓글
+let searchPageMax; // 검색
 
 let isDrawCard = false;
 
@@ -73,6 +72,65 @@ if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
 }
 
+// 카드 개수 집계
+function setCardInfo() {
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/card/count'
+  }, { withCredentials : true })
+    .then((Response)=>{
+      console.log(Response.data);
+
+      let cardTotal = Response.data.total;
+      let cardStatusTrue = Response.data.true;
+      let cardStatusFalse = Response.data.false;
+
+      cardTotalElement.innerText = cardTotal;
+      cardTrueElement.innerText = cardStatusTrue;
+      cardFalseElement.innerText = cardStatusFalse;
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+}
+
+// 카드 상태 변경을 위한 사용자 확인
+function checkUserForUpdateStatus(cardId) {
+  console.log("checkUserForUpdateStatus");
+
+  axios({
+    method: 'get',
+    url: 'http://54.180.95.53:8000/check',
+    params: {
+      "username":username
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      console.log(Response.data);
+      if (Response.data == true) { // 관리자
+        console.log("update function");
+        updateStatus(cardId);
+      }
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+}
+
+// 카드 상태 변경
+function updateStatus(cardId){
+  console.log("UpdateStatus");
+  axios({
+    method: 'patch',
+    url: 'http://54.180.95.53:8000/card/status',
+    params: {
+      "card_id":cardId
+    }
+  }, { withCredentials : true })
+    .then((Response)=>{
+      setCardInfo();
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+}
 
 // url에 있는 card id 가져오기
 function getParam() {
@@ -101,7 +159,7 @@ function loadDetailPage() {
 
   // 댓글
   getCommentList();
-
+  checkUserForUpdateStatus(cardId);
 }
 
 // 카드 상세보기 그리기
@@ -407,6 +465,7 @@ function deleteCard(cardId) {
 
 // 모든 카드 (completed)
 function getAllCards(option) {
+  localStorage.setItem('prevPage', "all");
   setCardInfo();
 
   // 카드 개수 가져오기
@@ -467,6 +526,9 @@ function getAllCardList() {
 
 // 내가 쓴 카드 (completed)
 function getMyCards(option) {
+  localStorage.setItem('prevPage', "my");
+  setCardInfo();
+
   // 카드 개수 가져오기
   axios({
     method: 'get',
@@ -615,7 +677,12 @@ function deleteCards(div) {
 
 // 뒤로가기
 function goBack() {
-  window.history.back()
+  // window.history.back();
+  if (localStorage.getItem('prevPage') == "all") {
+    location.href = "all_cards.html";
+  } else {
+    location.href = "my_cards.html";
+  }
 }
 
 
@@ -648,6 +715,7 @@ function searchCard() {
       method: 'get',
       url: 'http://54.180.95.53:8000/card/search',
       params: {
+        "page":searchPage,
         "location":"all",
         "option":selectedOptionParam, // 아이디 OR 내용
         "username":username,
@@ -677,6 +745,7 @@ function searchCard() {
       method: 'get',
       url: 'http://54.180.95.53:8000/card/search',
       params: {
+        "page":searchPage,
         "location":"user",
         "option":"content",
         "username":username,
