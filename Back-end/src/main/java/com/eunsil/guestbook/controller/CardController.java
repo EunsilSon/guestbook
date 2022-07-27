@@ -39,8 +39,13 @@ public class CardController {
 
     @GetMapping("/card/search")
     @ResponseBody
-    public List<CardDTO> search(@RequestParam String location, String option, String username, String content) {
-        return cardService.search(location, option, username, content);
+    public List<CardDTO> search(@RequestParam Integer page, String location, String option, String username, String content) {
+        return cardService.search(page, location, option, username, content);
+    }
+
+    @GetMapping("/card/my")
+    public List<CardDTO> getMy(@RequestParam Integer page, String username) {
+        return cardService.getMy(page, username);
     }
 
     @GetMapping("/card/all")

@@ -4,6 +4,7 @@ import com.eunsil.guestbook.domain.dto.CardDTO;
 import com.eunsil.guestbook.domain.entity.Card;
 import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
+import com.eunsil.guestbook.repository.CommentRepository;
 import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,13 @@ import java.util.List;
 public class CardService {
     private CardRepository cardRepository;
     private UserRepository userRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository, UserRepository userRepository) {
+    public CardService(CardRepository cardRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     public String insert(String name, String content) {
@@ -50,29 +53,31 @@ public class CardService {
         }
     }
 
-    public String delete(String card_id) {
-        Card card = cardRepository.findById(card_id);
+    public String delete(String cardId) {
+        commentRepository.deleteAllByCardId(Long.parseLong(cardId)); // 카드에 달린 댓글 삭제
+        Card card = cardRepository.findById(cardId); // 카드 삭제
         if (card != null) {
-            cardRepository.deleteById(card.id);
+            cardRepository.deleteById(Long.parseLong(cardId));
             return "ok";
         } else {
             return "Not Existed Card";
         }
     }
 
-    public List<CardDTO> search(String location, String option, String name, String content) {
+    public List<CardDTO> search(Integer page, String location, String option, String name, String content) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
         List<Card> cardList;
 
         if (location.equals("all")) { // 모든 카드 페이지
             if (option.equals("username")) { // 사용자 명으로 찾기
                 User user = userRepository.findUserByName(content);
-                cardList = cardRepository.findAllByUserOrderByIdDesc(user);
+                cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
             } else { // 내용으로 찾기
-                cardList = cardRepository.findAllByContent(content);
+                cardList = cardRepository.findAllByContent(content, pageable);
             }
         } else { // 내 카드 페이지 - 내용으로 찾기
             User user = userRepository.findUserByName(name);
-            cardList = cardRepository.findAllByUserByContentOrderByIdDesc(content, user);
+            cardList = cardRepository.findAllByUserByContentOrderByIdDesc(content, user, pageable);
         }
 
         List<CardDTO> cardDTOList = new ArrayList<>();
@@ -104,6 +109,25 @@ public class CardService {
             cardDtoList.add(cardDto);
         }
         return cardDtoList;
+    }
+
+    public List<CardDTO> getMy(Integer page, String username){
+        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "id");
+        User user = userRepository.findUserByName(username);
+        List<Card> cardList = cardRepository.findAllByUserOrderByIdDesc(user, pageable);
+
+        List<CardDTO> cardDTOList = new ArrayList<>();
+
+        for (Card cards : cardList) {
+            CardDTO card = CardDTO.builder()
+                    .cardId(cards.getId())
+                    .name(cards.getUser().getName())
+                    .content(cards.content)
+                    .postDate(cards.postDate)
+                    .build();
+            cardDTOList.add(card);
+        }
+        return cardDTOList;
     }
 
     public CardDTO getDetail(String cardId) {

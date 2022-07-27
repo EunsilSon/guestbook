@@ -40,4 +40,9 @@ public class SignController {
     public String findPw(@RequestParam String name, String tel) {
         return signService.findPw(name,tel);
     }
+
+    @GetMapping("/check")
+    public String check(@RequestParam String username) {
+        return signService.checkUser(username);
+    }
 }

@@ -14,8 +14,11 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM comment WHERE id = :comment_id", nativeQuery = true)
-    void deleteById(String comment_id);
+    @Query(value = "DELETE FROM comment WHERE id = :commentId", nativeQuery = true)
+    void deleteById(String commentId);
+
+    @Transactional
+    void deleteAllByCardId(Long cardId);
 
     List<Comment> findByCardOrderByIdDesc(Card card, Pageable pageable);
 

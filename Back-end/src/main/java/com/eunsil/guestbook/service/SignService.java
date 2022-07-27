@@ -60,4 +60,13 @@ public class SignService {
             return user.getPassword();
         }
     }
+
+    public String checkUser(String username) {
+        User user = userRepository.findUserByName(username);
+        if (user.isAdmin()) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
 }
