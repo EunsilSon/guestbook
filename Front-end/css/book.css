@@ -160,7 +160,7 @@ article {
 
 .search_option {
   color: gray;
-  border: 0.5px solid gray;
+  border: 0.5px solid #44546A;
   border-radius: 3px;
   background-color: #fafafa;
   margin-right: 3px;
@@ -173,6 +173,18 @@ article {
 
 .search_page {
   text-align: center;
+}
+
+.search_page_btn {
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: #fafafa;
+  color: #44546A;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .back {

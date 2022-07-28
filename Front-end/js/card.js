@@ -12,6 +12,7 @@ let searchPageMax; // 카드 검색
 let commentPageMax; // 댓글
 
 let isDrawCard = false;
+let isSearchCardList = false;
 
 let cardList = new Array();
 let commentList = new Array();
@@ -30,6 +31,9 @@ let myPageCountElement = document.getElementById('myPageCount');
 let cardTotalElement = document.getElementById('card_total');
 let cardTrueElement = document.getElementById('card_true');
 let cardFalseElement = document.getElementById('card_false');
+let pageElement = document.getElementById('page');
+let allSearchPageBtn;
+let mySearchPageBtn;
 
 if (document.getElementById("insert_btn")) {
   insert_btn.addEventListener('click', () => insertCard());
@@ -44,7 +48,10 @@ if (document.getElementById("delete_btn")) {
 }
 
 if (document.getElementById("search_btn")) {
-  search_btn.addEventListener('click', () => searchCard());
+  search_btn.addEventListener('click', () => {
+    deleteCards(document.getElementById('card_list'));
+    searchCard();
+  });
 }
 
 if (document.getElementById("comment_insert_btn")) {
@@ -515,7 +522,6 @@ function getMyCardTotal() {
 // 모든 카드 (completed)
 function getAllCards(option) {
   setSearchPageCount();
-
   localStorage.setItem('prevPage', "all"); // card_detail에서 뒤로가기를 위한 경로 저장
   setCardInfo(); // 카드 확인 유무 개수
   getAllCardTotal(); // 페이지 표시를 위한 카드 총 개수
@@ -711,14 +717,14 @@ function goBack() {
   }
 }
 
+let selectedOptionParam;
+let searchContent;
 
 // 카드 검색
 function searchCard() {
   setSearchPageCount();
   
-  // 선택된 옵션 가져오기 + 값 확인 ('모든 카드' 에서만 사용)
-  let selectedOptionParam;
-
+  // 선택된 옵션 가져오기 + 입력값 저장 ('모든 카드' 에서만 사용)
   if (document.getElementById("search_option")) {
     const searchOption = document.getElementById("search_option");
     const selectedOption = searchOption.options[searchOption.selectedIndex].value;
@@ -730,22 +736,41 @@ function searchCard() {
       selectedOptionParam = (selectedOption == "username") ? selectedOptionParam = "username" : selectedOptionParam = "content";
     }
   }
+  localStorage.setItem('selectedOptionParam', selectedOptionParam);
  
+
   // 현재 경로 가져오기
   var fileName = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 30);
 
   // 입력 값 가져오기
-  const searchContent = document.getElementById("search_content").value;
+  searchContent = document.getElementById("search_content").value;
+  localStorage.setItem('searchContent', searchContent);
   
+  while (pageElement.hasChildNodes()) {
+    pageElement.removeChild(pageElement.firstChild);
+  }
+  
+  let allSearchPageBtn = document.createElement("button");
+  let mySearchPageBtn = document.createElement("button");
 
   if (fileName == 'all_cards.html') {
-    searchAllCards(selectedOptionParam, searchContent);
+    allSearchPageBtn.setAttribute("class", "search_page_btn");
+    allSearchPageBtn.setAttribute("onclick", "searchAllCards()");
+    allSearchPageBtn.innerText = "더보기";
+    pageElement.appendChild(allSearchPageBtn);
+    searchAllCards();
+
   } else {
-    searchMyCards(searchContent) ;
+    mySearchPageBtn.setAttribute("class", "search_page_btn");
+    mySearchPageBtn.setAttribute("onclick", "searchMyCards()");
+    mySearchPageBtn.innerText = "더보기";
+    pageElement.appendChild(mySearchPageBtn);
+    searchMyCards() ;
   }
+
 }
 
-function searchAllCards(selectedOptionParam, searchContent) {
+function searchAllCards() {
   searchPageCount++;
 
   axios({
@@ -754,28 +779,39 @@ function searchAllCards(selectedOptionParam, searchContent) {
     params: {
       "page":searchPageCount,
       "location":"all",
-      "option":selectedOptionParam, // 아이디 OR 내용
+      "option":localStorage.getItem('selectedOptionParam'), // 아이디 OR 내용
       "username":username,
-      "content":searchContent
+      "content":localStorage.getItem('searchContent')
     }
   }, { withCredentials : true })
-    .then((Response)=>{
-      if (Response.data.length == 0) {
-        alert("일치하는 카드가 없습니다.");
-      } else {
-        cardList = Response.data;
-        deleteCards(document.getElementById('card_list'));
-
-        for (i = 0; i < Response.data.length; i++) {
-          drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
-        }
+  .then((Response)=>{
+    if (Response.data.length < 5) {
+      while (pageElement.hasChildNodes()) {
+        pageElement.removeChild(pageElement.firstChild);
       }
+    }
+
+    if (Response.data.length == 0) {
+      alert("일치하는 카드가 없습니다.");
+    } else {
+      cardList = Response.data;
+
+      if (isSearchCardList == false) {
+        deleteCards(document.getElementById('card_list'));
+      }
+
+      isSearchCardList = true;
+      for (i = 0; i < Response.data.length; i++) {
+        drawCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
+      }
+    }
   }).catch((Error)=>{
       console.log(Error);
   })
 }
 
-function searchMyCards(searchContent) {
+
+function searchMyCards() {
   searchPageCount++;
 
   axios({
@@ -786,16 +822,27 @@ function searchMyCards(searchContent) {
       "location":"user",
       "option":"content",
       "username":username,
-      "content":searchContent
+      "content":localStorage.getItem('searchContent')
     }
   }, { withCredentials : true })
     .then((Response)=>{
+      if (Response.data.length < 5) {
+        while (pageElement.hasChildNodes()) {
+          pageElement.removeChild(pageElement.firstChild);
+        }
+      }
+
       if (Response.data.length == 0) {
         alert("일치하는 카드가 없습니다.");
+
       } else {
         cardList = Response.data;
-        deleteCards(document.getElementById('card_list'));
 
+        if (isSearchCardList == false) {
+          deleteCards(document.getElementById('card_list'));
+        }
+
+        isSearchCardList = true;
         for (i = 0; i < Response.data.length; i++) {
           drawMyCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
         }
