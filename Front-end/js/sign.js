@@ -5,40 +5,39 @@ let userTel = document.getElementById('user_tel');
 let isRight;
 
 function checkUsername(username) {
-  if (username.length >= 2) {
-    isRight = true;
-  }
-  if (!isRight) {
+  if (username.length < 2) {
     swal('입력 값 불일치!',"아이디를 최소 2자 이상 입력하세요.",'warning')
     .then(function(){     
       removeName();
-  })
+    })
+    return false;
+  } else {
+    return true;
   }
-  return isRight;
 }
 
 function checkUserPw(userPw) {
-  if (userPw.length <= 8) {
+  if (userPw.length < 8) {
     swal('입력 값 불일치!',"비밀번호를 최소 8자 이상 입력하세요.",'warning')
     .then(function(){      
       removePw();
-      isRight = false;
-  })
+    })
+    return false;
+  } else {
+    return true;
   }
-  return isRight;
 }
 
 function checkTel(userTel) {
-  if (userTel.length == 11) {
-    isRight = true;
-  }
-  if (!isRight) {
+  if (userTel.length != 11) {
     swal('입력 값 불일치!',"연락처를 11자 입력하세요.",'warning')
     .then(function(){   
-      removeTel();    
-  })
+      removeTel();
+    })
+    return false;
+  } else {
+    return true;
   }
-  return isRight;
 }
 
 
@@ -57,9 +56,9 @@ function removeTel() {
 
 // 로그인
 function signIn() {
-  isRight = false;
+  isRight = checkUsername(userName.value) && checkUserPw(userPw.value);
 
-  if (checkUsername(userName.value) && checkUserPw(userPw.value)) {
+  if (isRight) {
     axios({
       method: 'post', //통신 방식
       url: 'http://54.180.95.53:8000/sign_in',
@@ -93,9 +92,9 @@ function signIn() {
 
 // 회원가입
 function signUp() {
-  isRight = false;
+  isRight = checkUsername(userName.value) && checkUserPw(userPw.value) && checkTel(userTel.value);
 
-  if (checkUsername(userName.value) && checkUserPw(userPw.value) && checkTel(userTel.value)) {
+  if (isRight) {
 
     axios({
       method: 'post', //통신 방식
@@ -134,8 +133,9 @@ function signUp() {
 
 // id 찾기 (completed)
 function findId() {
+  isRight = checkTel(userTel.value);
 
-  if (checkTel(userTel.value)) {
+  if (isRight) {
     axios({
       method: 'get', //통신 방식
       url: 'http://54.180.95.53:8000/id',
@@ -164,8 +164,9 @@ function findId() {
 
 // pw 찾기
 function findPw() {
+  isRight = checkUsername(userName.value) && checkTel(userTel.value);
 
-  if (checkTel(userName.value) && checkTel(userTel.value)) {
+  if (isRight) {
 
     axios({
       method: 'get', //통신 방식
