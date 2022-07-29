@@ -1,48 +1,65 @@
 const form = document.getElementById('form');
-const userName = document.getElementById('user_name');
-const userPw = document.getElementById('user_pw');
-const userTel = document.getElementById('user_tel');
+let userName = document.getElementById('user_name');
+let userPw = document.getElementById('user_pw');
+let userTel = document.getElementById('user_tel');
+let isRight;
 
-let isRight = true;
-
-// 입력 값 유효성 확인
-function checkInput(inputArr) {
-
-  if (inputArr.userName != "not existed") {
-    isRight = (inputArr.userName.length) >= 2 ? true : false;
-    // css : 2자 이상
+function checkUsername(username) {
+  if (username.length >= 2) {
+    isRight = true;
   }
-
-  if (inputArr.userPw != "not existed") {
-    isRight = (inputArr.userPw.length) >= 8 ? true : false;
-    // css : 8자 이상
+  if (!isRight) {
+    swal('입력 값 불일치!',"아이디를 최소 2자 이상 입력하세요.",'warning')
+    .then(function(){     
+      removeName();
+  })
   }
-
-  if (inputArr.userTel != "not existed") {
-    isRight = (inputArr.userTel.length) == 11 ? true : false;
-    // css : 11자
-  }
-
   return isRight;
 }
 
+function checkUserPw(userPw) {
+  if (userPw.length <= 8) {
+    swal('입력 값 불일치!',"비밀번호를 최소 8자 이상 입력하세요.",'warning')
+    .then(function(){      
+      removePw();
+      isRight = false;
+  })
+  }
+  return isRight;
+}
+
+function checkTel(userTel) {
+  if (userTel.length == 11) {
+    isRight = true;
+  }
+  if (!isRight) {
+    swal('입력 값 불일치!',"연락처를 11자 입력하세요.",'warning')
+    .then(function(){   
+      removeTel();    
+  })
+  }
+  return isRight;
+}
+
+
 // 입력 값 지우기 
-function removeInput() {
-  userPw.value = null;
-  userName.value = null;
-  userTel.value = null;
+function removeName() {
+  userName.value = "";
+}
+
+function removePw() {
+  userPw.value = "";
+}
+
+function removeTel() {
+  userTel.value = "";
 }
 
 // 로그인
 function signIn() {
+  isRight = false;
 
-  let userInfoArr = {
-    userPw : userPw.value,
-    userName : userName.value,
-    userTel : "not existed",
-  };
-
-  if (checkInput(userInfoArr)) {
+  if (checkUsername(userName.value) && checkUserPw(userPw.value)) {
     axios({
       method: 'post', //통신 방식
       url: 'http://54.180.95.53:8000/sign_in',
@@ -53,13 +70,19 @@ function signIn() {
     }, { withCredentials : true })
       .then((Response)=>{
         if (Response.data == "fail") {
-          alert("아이디 및 비밀번호가 올바르지 않습니다.");  
-          removeInput();
+          swal('로그인 실패!',"아이디 및 비밀번호가 올바르지 않습니다.",'error')
+          .then(function(){
+            removeName();
+            removePw();            
+          })
         } else {
-          alert("로그인 되었습니다.");
-          localStorage.setItem('username', userName.value);
-          form.submit();
-          removeInput();
+          swal('로그인 성공!',userName.value+"님 로그인 되었습니다.",'success')
+          .then(function(){
+            localStorage.setItem('username', userName.value);
+            form.submit();
+            removeName();
+            removePw();                  
+          })
         }
   }).catch((Error)=>{
       console.log(Error);
@@ -70,14 +93,9 @@ function signIn() {
 
 // 회원가입
 function signUp() {
+  isRight = false;
 
-  let userInfoArr = {
-    userPw : userPw.value,
-    userName : userName.value,
-    userTel : userTel.value,
-  };
-
-  if (checkInput(userInfoArr)) {
+  if (checkUsername(userName.value) && checkUserPw(userPw.value) && checkTel(userTel.value)) {
 
     axios({
       method: 'post', //통신 방식
@@ -90,13 +108,23 @@ function signUp() {
     }, { withCredentials : true })
       .then((Response)=>{
         if (Response.data == "Existed Username") {
-          alert("존재하는 아이디입니다.");  
+          swal("존재하는 아이디입니다.")
+          .then(function(){
+            removeName();                
+          })  
         } else if (Response.data == "Existed telephone") {
-          alert("존재하는 연락처입니다.");
+          swal("존재하는 연락처입니다.")
+          .then(function(){
+            removeTel();                 
+          })
         } else {
-          alert("회원가입에 성공했습니다.");
-          form.submit();
-          removeInput();
+          swal("회원가입 성공!", "로그인 후 서비스를 이용하세요.", "success")
+          .then(function(){
+            form.submit();
+            removeName();
+            removePw();  
+            removeTel();                 
+          })
         }
   }).catch((Error)=>{
       console.log(Error);
@@ -104,16 +132,10 @@ function signUp() {
   }
 }
 
-// id 찾기
+// id 찾기 (completed)
 function findId() {
 
-  let userInfoArr = {
-    userPw : "not existed",
-    userName : "not existed",
-    userTel : userTel.value,
-  };
-
-  if (checkInput(userInfoArr)) {
+  if (checkTel(userTel.value)) {
     axios({
       method: 'get', //통신 방식
       url: 'http://54.180.95.53:8000/id',
@@ -123,11 +145,16 @@ function findId() {
     }, { withCredentials : true })
       .then((Response)=>{
         if (Response.data == "fail") {
-          alert("일치하는 사용자가 없습니다.");  
+          swal('ID 찾기 실패!',"일치하는 사용자가 없습니다.",'info')
+          .then(function(){
+            removeTel();           
+          })
         } else {
-          alert("아이디는 " + Response.data + "입니다.");
-          form.submit();
-          removeInput();
+          swal('ID 찾기 성공!',"아이디는 ▶ " + Response.data + " ◀ 입니다.",'success')
+          .then(function(){
+            form.submit();
+            removeName();             
+          })
         }
   }).catch((Error)=>{
       console.log(Error);
@@ -138,13 +165,7 @@ function findId() {
 // pw 찾기
 function findPw() {
 
-  let userInfoArr = {
-    userPw : "not existed",
-    userName : userName.value,
-    userTel : userTel.value,
-  };
-
-  if (checkInput(userInfoArr)) {
+  if (checkTel(userName.value) && checkTel(userTel.value)) {
 
     axios({
       method: 'get', //통신 방식
@@ -156,11 +177,16 @@ function findPw() {
     }, { withCredentials : true })
       .then((Response)=>{
         if (Response.data == "fail") {
-          alert("일치하는 사용자가 없습니다.");  
+          swal('PW 찾기 실패!',"일치하는 사용자가 없습니다.",'info')
+          .then(function(){
+            removeTel();           
+          })
         } else {
-          alert("비밀번호는 " + Response.data + "입니다.");
-          form.submit();
-          removeInput();
+          swal('PW 찾기 성공!',"비밀번호는 ▶ " + Response.data + " ◀ 입니다.",'success')
+          .then(function(){
+            form.submit();
+            removeName();             
+          })
         }
   }).catch((Error)=>{
       console.log(Error);

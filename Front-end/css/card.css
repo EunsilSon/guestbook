@@ -1,5 +1,6 @@
 body {
-  height: auto
+  height: auto;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 #card_count {
@@ -28,6 +29,7 @@ body {
   border-radius: 5px;
   box-shadow: 1px 1px 2px grey;
   background-color: white;
+  cursor: pointer;
 }
 
 .card_detail {
@@ -48,16 +50,18 @@ body {
 
 .card_writer {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .card_post_date {
-  font-size: 15px;
+  font-size: 16px;
   color: gray;
 }
 
 .card_list .card_content {
   margin: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card_detail .card_content {
@@ -66,15 +70,18 @@ body {
   margin-top: 20px;
   border: 0px;
   resize: none;
+  font-size: 18px;
 }
 
 .edit_card_content {
-  width: 500px;
-  height: 250px;
+  width: 455px;
+  height: 210px;
   margin-top: 10px;
   border: 3px solid indianred;
   border-radius: 5px;
   resize: none;
+  font-size: 17px;
+  padding: 15px 20px 15px 20px;
 }
 
 textarea:focus {
@@ -84,19 +91,18 @@ textarea:focus {
 .card_btn {
   display: flex;
   flex-direction: row-reverse;
-  margin-top: 15px;
 }
 
 .card_list .card button {
   width: 70px;
-  height: 30px;
+  height: 25px;
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 15px;
   border: 0px;
   border-radius: 5px;
   background-color: #44546A;
   color: #FFFAEB;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .card_write {
@@ -106,12 +112,13 @@ textarea:focus {
 }
 
 .card_write textarea {
-  width: 460px;
+  width: 420px;
   height: 200px;
-  padding: 20px 0px 50px 20px;
-  resize: none;
-  border: 0.5px solid lightgray;
+  padding: 20px 30px 50px 30px;
+  font-size: 16px;
+  border: 0.5px solid #44546A;
   background-color: white;
+  resize: none;
 }
 
 .card_write textarea::placeholder {
@@ -145,6 +152,13 @@ textarea:focus {
 }
 
 #comment_page_btn {
+  width: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #44546A;
+  color: #fafafa;
+  font-weight: bold;
+  font-size: 13px;
   cursor: pointer;
 }
 

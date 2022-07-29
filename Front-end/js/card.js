@@ -1,15 +1,16 @@
 let username;
-let prevPage;
+let selectedOptionParam;
+let searchContent;
 
 let pageCount = -1;
 let myPageCount = -1;
 let searchPageCount = -1;
 let commentPageCount = 0;
 
-let pageMax; // 모든 카드
-let myPageMax; // 내가 쓴 카드
-let searchPageMax; // 카드 검색
-let commentPageMax; // 댓글
+let pageMax;
+let myPageMax;
+let searchPageMax;
+let commentPageMax;
 
 let isDrawCard = false;
 let isSearchCardList = false;
@@ -34,6 +35,7 @@ let cardFalseElement = document.getElementById('card_false');
 let pageElement = document.getElementById('page');
 let allSearchPageBtn;
 let mySearchPageBtn;
+
 
 if (document.getElementById("insert_btn")) {
   insert_btn.addEventListener('click', () => insertCard());
@@ -77,6 +79,12 @@ if (document.getElementById('myCardsPageNext')) {
 // 현재 접속한 사용자
 if (localStorage.getItem('username')) {
   username = localStorage.getItem('username');
+}
+
+// url에 있는 card id 가져오기
+function getParam() {
+  const urlParams = new URL(location.href).searchParams;
+  return urlParams.get('id');
 }
 
 // 카드 검색 시 페이지 변수 초기화
@@ -144,11 +152,6 @@ function updateStatus(cardId){
   })
 }
 
-// url에 있는 card id 가져오기
-function getParam() {
-  const urlParams = new URL(location.href).searchParams;
-  return urlParams.get('id');
-}
 
 // 카드 상세 페이지
 function loadDetailPage() {
@@ -216,7 +219,7 @@ function getCommentList() {
   })
 
   if (commentPageCount == commentPageMax) {
-    alert("마지막 페이지 입니다.");
+    swal("마지막 페이지입니다.");
   } else {
     axios({
       method: 'get',
@@ -247,7 +250,7 @@ function drawComments(cardId, commentId, writer, postDate, content) {
   let comment = document.createElement('div');
   let commentTop = document.createElement('div');
   let commentWriter = document.createElement('p');
-  let commentContent = document.createElement('p');
+  let commentContent = document.createElement('textarea');
   let commentPostDate = document.createElement('p');
 
   comment.setAttribute('class', 'comment');
@@ -281,7 +284,7 @@ function insertComment() {
   const newComment = document.getElementById('new_comment').value;
 
   if (newComment.value == '') {
-    alert("댓글을 작성하세요.");
+    swal("댓글을 작성하세요.");
   } else {
     axios({
       method: 'post',
@@ -296,9 +299,11 @@ function insertComment() {
         if (Response.data == "fail") {
           console.log(Response.data);
         } else {
-          alert("댓글이 작성되었습니다.");
-          location.href="card_detail.html?id=" + cardId;
-          newComment.value = '';
+          swal('댓글이 작성되었습니다!'," ",'success')
+          .then(function(){
+            location.href="card_detail.html?id=" + cardId;
+            newComment.value = '';                  
+          })
         }
   }).catch((Error)=>{
       console.log(Error);
@@ -320,8 +325,10 @@ function deleteComment(commentId, cardId) {
       if (Response.data == "Not Existed Comment") {
         console.log(Response.data);
       } else {
-        alert("댓글이 삭제되었습니다.");
-        location.href="card_detail.html?id=" + cardId;
+        swal('댓글이 삭제되었습니다.'," ",'success')
+          .then(function(){
+            location.href="card_detail.html?id=" + cardId;
+          })
       }
   }).catch((Error)=>{
       console.log(Error);
@@ -354,7 +361,9 @@ function insertCard() {
   const cardContent = document.getElementById('card_content').value;
   
   if (cardContent.value == '') {
-    alert("카드를 작성하세요.");
+    swal('카드를 작성하세요'," ",'error')
+          .then(function(){               
+          })
   } else {
     axios({
       method: 'post',
@@ -368,8 +377,10 @@ function insertCard() {
         if (Response.data == "fail") {
           console.log(Response.data);
         } else {
-          alert("카드가 작성되었습니다.");
-          location.href="all_cards.html";
+          swal('카드가 작성되었습니다!'," ",'success')
+          .then(function(){
+            location.href="all_cards.html";
+          })
         }
   }).catch((Error)=>{
       console.log(Error);
@@ -394,8 +405,10 @@ function updateCard() {
       if (Response.data == "Not Existed Card") {
         console.log(Response.data);
       } else {
-        alert("카드가 수정되었습니다.");
-        location.href="my_cards.html"; // 수정한 카드로 이동
+        swal('카드가 수정되었습니다!'," ",'success')
+          .then(function(){
+            location.href="my_cards.html"; // 수정한 카드로 이동
+          })
       }
   }).catch((Error)=>{
       console.log(Error);
@@ -467,8 +480,10 @@ function deleteCard(cardId) {
       if (Response.data == "Not Existed Card") {
         console.log(Response.data);
       } else {
-        alert("카드가 삭제되었습니다.");
-        location.href="my_cards.html";
+        swal('카드가 삭제되었습니다.'," ",'success')
+          .then(function(){
+            location.href="my_cards.html";
+          })
       }
   }).catch((Error)=>{
       console.log(Error);
@@ -528,7 +543,7 @@ function getAllCards(option) {
 
   if (option == "prev") {
     if (pageCount <= 0) {
-      alert("첫 페이지 입니다.");
+      swal("첫 페이지 입니다.");
     } else {
       pageCount--;
       getAllCardList();
@@ -537,7 +552,7 @@ function getAllCards(option) {
   
   if (option == "next") {
     if ((pageMax - pageCount) == 1) {
-      alert("마지막 페이지 입니다.");
+      swal("마지막 페이지 입니다.");
     } else {
       pageCount++;
       getAllCardList();
@@ -578,7 +593,7 @@ function getMyCards(option) {
 
   if (option == "prev") {
     if (myPageCount <= 0) {
-      alert("첫 페이지 입니다.");
+      swal("첫 페이지 입니다.");
     } else {
       myPageCount--;
       getMyCardList();
@@ -587,7 +602,7 @@ function getMyCards(option) {
   
   if (option == "next") {
     if ((myPageMax - myPageCount) == 1) {
-      alert("마지막 페이지 입니다.");
+      swal("마지막 페이지 입니다.");
     } else {
       myPageCount++;
       getMyCardList();
@@ -717,9 +732,6 @@ function goBack() {
   }
 }
 
-let selectedOptionParam;
-let searchContent;
-
 // 카드 검색
 function searchCard() {
   setSearchPageCount();
@@ -730,13 +742,15 @@ function searchCard() {
     const selectedOption = searchOption.options[searchOption.selectedIndex].value;
 
     if (selectedOption == "none") {
-      alert("검색 옵션을 선택하세요.");
-      window.location.reload();
+      swal('검색 옵션을 선택하세요'," ",'info')
+          .then(function(){
+            window.location.reload();                 
+          })
     } else {
       selectedOptionParam = (selectedOption == "username") ? selectedOptionParam = "username" : selectedOptionParam = "content";
     }
+    localStorage.setItem('selectedOptionParam', selectedOptionParam);
   }
-  localStorage.setItem('selectedOptionParam', selectedOptionParam);
  
 
   // 현재 경로 가져오기
@@ -759,8 +773,9 @@ function searchCard() {
     allSearchPageBtn.innerText = "더보기";
     pageElement.appendChild(allSearchPageBtn);
     searchAllCards();
-
-  } else {
+  }
+  
+  if (fileName == 'my_cards.html') {
     mySearchPageBtn.setAttribute("class", "search_page_btn");
     mySearchPageBtn.setAttribute("onclick", "searchMyCards()");
     mySearchPageBtn.innerText = "더보기";
@@ -792,7 +807,10 @@ function searchAllCards() {
     }
 
     if (Response.data.length == 0) {
-      alert("일치하는 카드가 없습니다.");
+      swal('일치하는 카드가 없습니다.'," ",'info')
+          .then(function(){
+            window.location.reload();                
+          })
     } else {
       cardList = Response.data;
 
@@ -833,7 +851,10 @@ function searchMyCards() {
       }
 
       if (Response.data.length == 0) {
-        alert("일치하는 카드가 없습니다.");
+        swal('일치하는 카드가 없습니다.'," ",'info')
+          .then(function(){ 
+            window.location.reload();               
+          })
 
       } else {
         cardList = Response.data;

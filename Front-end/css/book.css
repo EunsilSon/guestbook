@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 html {
@@ -54,6 +55,7 @@ article {
 
 #user_name {
   font-size: 30px;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
@@ -88,7 +90,7 @@ article {
   background-color: #44546A;
   color: #FFFAEB;
   font-size: 16px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .btn_box {
@@ -179,11 +181,11 @@ article {
   width: 100px;
   height: 35px;
   border-radius: 5px;
-  border: 1px solid gray;
-  background-color: #fafafa;
-  color: #44546A;
+  border: 0px;
+  background-color: #44546A;
+  color: #fafafa;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
 }
 
