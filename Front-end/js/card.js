@@ -14,6 +14,7 @@ let commentPageMax;
 
 let isDrawCard = false;
 let isSearchCardList = false;
+let checkComment = false;
 
 let cardList = new Array();
 let commentList = new Array();
@@ -35,6 +36,9 @@ let cardFalseElement = document.getElementById('card_false');
 let pageElement = document.getElementById('page');
 let allSearchPageBtn;
 let mySearchPageBtn;
+let commentPageElement;
+let commentPageBtn;
+let newComment;
 
 
 if (document.getElementById("insert_btn")) {
@@ -99,15 +103,9 @@ function setCardInfo() {
     url: 'http://54.180.95.53:8000/card/count'
   }, { withCredentials : true })
     .then((Response)=>{
-      console.log(Response.data);
-
-      let cardTotal = Response.data.total;
-      let cardStatusTrue = Response.data.true;
-      let cardStatusFalse = Response.data.false;
-
-      cardTotalElement.innerText = cardTotal;
-      cardTrueElement.innerText = cardStatusTrue;
-      cardFalseElement.innerText = cardStatusFalse;
+      cardTotalElement.innerText = Response.data.total;
+      cardTrueElement.innerText = Response.data.true;
+      cardFalseElement.innerText = Response.data.false;
   }).catch((Error)=>{
       console.log(Error);
   })
@@ -115,7 +113,6 @@ function setCardInfo() {
 
 // 카드 상태 변경을 위한 사용자 확인
 function checkUserForUpdateStatus(cardId) {
-  console.log("checkUserForUpdateStatus");
 
   axios({
     method: 'get',
@@ -125,9 +122,7 @@ function checkUserForUpdateStatus(cardId) {
     }
   }, { withCredentials : true })
     .then((Response)=>{
-      console.log(Response.data);
       if (Response.data == true) { // 관리자
-        console.log("update function");
         updateStatus(cardId);
       }
   }).catch((Error)=>{
@@ -137,7 +132,6 @@ function checkUserForUpdateStatus(cardId) {
 
 // 카드 상태 변경
 function updateStatus(cardId){
-  console.log("UpdateStatus");
   axios({
     method: 'patch',
     url: 'http://54.180.95.53:8000/card/status',
@@ -202,46 +196,31 @@ function drawDetailCard(writer, postDate, content) {
 
 // 댓글
 function getCommentList() {
+  if (checkComment && commentList.length == 0) {
+    swal("댓글이 없습니다.");
+  }
   const cardId = getParam();
 
-  // 댓글 개수 가져오기
   axios({
     method: 'get',
-    url: 'http://54.180.95.53:8000/comment/total',
+    url: 'http://54.180.95.53:8000/comment',
     params: {
+      "page":commentPageCount,
       "cardId":cardId
     }
   }, { withCredentials : true })
     .then((Response)=>{
-      commentPageMax = Response.data / 10;
+      commentList = Response.data;
+      
+      for (i = 0; i < commentList.length; i++) {
+        drawComments(cardId, commentList[i].commentId, commentList[i].name, commentList[i].postDate, commentList[i].content);
+      }
+      checkComment = true;
+
   }).catch((Error)=>{
       console.log(Error);
   })
-
-  if (commentPageCount == commentPageMax) {
-    swal("마지막 페이지입니다.");
-  } else {
-    axios({
-      method: 'get',
-      url: 'http://54.180.95.53:8000/comment',
-      params: {
-        "page":commentPageCount,
-        "cardId":cardId
-      }
-    }, { withCredentials : true })
-      .then((Response)=>{
-        console.log(Response.data);
-        commentList = Response.data;
-        
-        for (i = 0; i < commentList.length; i++) {
-          drawComments(cardId, commentList[i].commentId, commentList[i].name, commentList[i].postDate, commentList[i].content);
-        }
-    }).catch((Error)=>{
-        console.log(Error);
-    })
-  
-    commentPageCount++;
-  }
+  commentPageCount++;
 }
 
 // 댓글 그리기
@@ -258,6 +237,7 @@ function drawComments(cardId, commentId, writer, postDate, content) {
 
   commentWriter.setAttribute('class', 'comment_writer');
   commentWriter.innerHTML = writer;
+  commentContent.setAttribute('onkeypress', 'comment_content');
   commentContent.setAttribute('class', 'comment_content');
   commentContent.innerHTML = content;
   commentPostDate.setAttribute('class', 'comment_post_date');
@@ -278,14 +258,47 @@ function drawComments(cardId, commentId, writer, postDate, content) {
   }
 }
 
+// 입력 값 글자 수 제한 확인
+function checkContentLength(option) {
+  if (option == "card") {
+
+    if (document.getElementById('card_content').value.length > 250) {
+      swal('글자 수 초과',"카드에 입력 가능한 글자수는 250자 입니다.",'error')
+      .then(function(){ 
+        return false;    
+      })
+    } else if ((document.getElementById('card_content').value.length == 0)) {
+      swal("카드를 작성하세요.");
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+
+  if (option == "comment") {
+
+    if (document.getElementById('new_comment').value.length > 100) {
+      swal('글자 수 초과',"댓글에 입력 가능한 글자수는 100자 입니다.",'error')
+      .then(function(){ 
+        return false;    
+      })
+    } else if ((document.getElementById('new_comment').value.length == 0)) {
+      swal("댓글을 작성하세요.");
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+}
+
 // 댓글 작성
 function insertComment() {
   const cardId = getParam();
-  const newComment = document.getElementById('new_comment').value;
-
-  if (newComment.value == '') {
-    swal("댓글을 작성하세요.");
-  } else {
+  newComment = document.getElementById('new_comment').value;
+  
+  if (checkContentLength("comment")) {
     axios({
       method: 'post',
       url: 'http://54.180.95.53:8000/comment',
@@ -360,11 +373,7 @@ function loadEditPage() {
 function insertCard() {
   const cardContent = document.getElementById('card_content').value;
   
-  if (cardContent.value == '') {
-    swal('카드를 작성하세요'," ",'error')
-          .then(function(){               
-          })
-  } else {
+  if (checkContentLength("card")) {
     axios({
       method: 'post',
       url: 'http://54.180.95.53:8000/card',
@@ -822,6 +831,7 @@ function searchAllCards() {
       for (i = 0; i < Response.data.length; i++) {
         drawCard(cardList[i].cardId, cardList[i].name, cardList[i].postDate, cardList[i].content);
       }
+
     }
   }).catch((Error)=>{
       console.log(Error);
