@@ -53,3 +53,4 @@ Java 기반의 웹 프레임워크 <b>Spring Boot와 JPA(Hibernate)</b>를 사�
 * [JPA] DELETE Query 에러 : Statement.executeQuery()<br>https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets
 * [JPA] save(), saveAll(), saveAndFlush() 차이<br>https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4
 * [Axios] Response.data 출력하기<br>https://velog.io/@eunsilson/Axios-Response.data-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0
+* [Axios] HTTP GET 요청 (feat. data를 담을 수 없다)<br>https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD
