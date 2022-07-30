@@ -29,6 +29,15 @@ body {
   cursor: pointer;
 }
 
+.name {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.velog_link {
+  color: crimson;
+}
+
 article {
   display: flex;
 }
@@ -47,11 +56,12 @@ article {
 
 .user_profile img {
   height: 150px;
+  margin-top: 10px;
 }
 
 .user_profile_info {
-  width: 320px;
-  margin: 0px 70px 0px 70px;
+  width: 350px;
+  margin-left: 50px;  
 }
 
 #user_name {
