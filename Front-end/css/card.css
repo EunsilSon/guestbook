@@ -62,6 +62,7 @@ body {
   margin: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre;
 }
 
 .card_detail .card_content {
@@ -148,17 +149,6 @@ textarea:focus {
   border-radius: 5px;
   background-color: #44546A;
   color: white;
-  cursor: pointer;
-}
-
-#comment_page_btn {
-  width: 100px;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #44546A;
-  color: #fafafa;
-  font-weight: bold;
-  font-size: 13px;
   cursor: pointer;
 }
 
