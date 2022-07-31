@@ -1,14 +1,9 @@
 # GUEST BOOK
-<br>
-
-## <b>목차</b>
-1. 프로젝트 개요
-2. 프로젝트 설명
-3. 사용 기술
-4. 테이블 구조
-
-<br>
-<br>
+<b>Eunsil's Guest Book 접속 ↓</b><br>
+http://54.180.95.53/
+<br><br><b>'게스트북' 개발 회고록↓</b><br>
+https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D
+<br><br>
 
 ## <b>1. 프로젝트 개요</b>
 <br>
@@ -18,28 +13,23 @@
 
 ## <b>2. 프로젝트 설명</b>
 <br>
-<p><b>게스트 북</b>은 여러 명의 사용자가 한 명에게 메시지를 남길 수 있는 <u>방명록 목적의 웹 사이트</u>입니다.</p>
+<p><b>게스트 북</b>은 여러 명의 사용자가 관리자에게 메시지를 남길 수 있는 <u>방명록 웹 사이트</u>입니다.</p>
 <br><br>
 
 ## <b>3. 사용 기술</b>
 
 + Server  
-<b>AWS의 EC2</b>(클라우드 가상 서버)와 <b>RDS</b>(데이터베이스 서버)를 사용합니다.
-
-<br>
-
-+ Database  
-<b>MariaDB</b>를 사용합니다.
+<b>AWS의 EC2</b>(Ubuntu 20.04)와 <b>RDS</b>(MariaDB 10.5)를 사용합니다.
 
 <br>
 
 + Front-end  
-<b>HTML, CSS, Javascript, Axios(HTTP 통신 라이브러리)</b>를 사용합니다.
+<b>HTML, CSS, Vanila JS, Axios(HTTP 통신 라이브러리)</b>를 사용합니다.
 
 <br>
 
 + Back-end  
-Java 기반의 웹 프레임워크 <b>Spring Boot와 JPA(Hibernate)</b>를 사용합니다.
+Java 기반의 웹 프레임워크 <b>Spring Boot 2.7.1과 JPA(Hibernate)</b>를 사용합니다.
 
 <br><br>
 
@@ -53,3 +43,4 @@ Java 기반의 웹 프레임워크 <b>Spring Boot와 JPA(Hibernate)</b>를 사�
 * [JPA] DELETE Query 에러 : Statement.executeQuery()<br>https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets
 * [JPA] save(), saveAll(), saveAndFlush() 차이<br>https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4
 * [Axios] Response.data 출력하기<br>https://velog.io/@eunsilson/Axios-Response.data-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0
+* [Axios] HTTP GET 요청 (feat. data를 담을 수 없다)<br>https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD
