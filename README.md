@@ -1,5 +1,7 @@
 # GUEST BOOK
-<b>['게스트북' 개발 회고록]</b><br>
+<b>Eunsil's Guest Book 접속 ↓</b><br>
+http://54.180.95.53/
+<br><br><b>'게스트북' 개발 회고록↓</b><br>
 https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D
 <br><br>
 
