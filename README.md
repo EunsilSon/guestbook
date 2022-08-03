@@ -1,6 +1,4 @@
 # GUEST BOOK
-<b>Eunsil's Guest Book 접속 ↓</b><br>
-http://54.180.95.53/
 <br><br><b>'게스트북' 개발 회고록↓</b><br>
 https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D
 <br><br>
@@ -44,3 +42,4 @@ Java 기반의 웹 프레임워크 <b>Spring Boot 2.7.1과 JPA(Hibernate)</b>를
 * [JPA] save(), saveAll(), saveAndFlush() 차이<br>https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4
 * [Axios] Response.data 출력하기<br>https://velog.io/@eunsilson/Axios-Response.data-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0
 * [Axios] HTTP GET 요청 (feat. data를 담을 수 없다)<br>https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD
+* [Docker] Docker Hub push 실패 : requested access to the resource is denied<br>https://velog.io/@eunsilson/Docker-Docker-Hub-push-%EC%8B%A4%ED%8C%A8-requested-access-to-the-resource-is-denied
