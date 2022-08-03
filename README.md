@@ -1,7 +1,12 @@
 # GUEST BOOK
-<br><br><b>'게스트북' 개발 회고록↓</b><br>
+<b>'게스트북' 개발 회고록 ↓</b><br>
 https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D
 <br><br>
+<b>'게스트북' UI ↓</b><br>
+[게스트북 UI.pptx](https://github.com/EunsilSon/guest-book/files/9249059/UI.pptx)
+<br>
+(서버를 계속 열어두려고 했으나 사용량 초과로인해 서버를 닫고 UI를 추가 작성 합니다. UI 양이 많아 PPT로 따로 정리했습니다.)
+<br><br><br>
 
 ## <b>1. 프로젝트 개요</b>
 <br>
