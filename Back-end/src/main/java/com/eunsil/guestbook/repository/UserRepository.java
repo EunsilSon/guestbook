@@ -2,11 +2,11 @@ package com.eunsil.guestbook.repository;
 
 import com.eunsil.guestbook.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@EnableJpaRepositories
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUserByNameAndPassword(String name, String pw);
