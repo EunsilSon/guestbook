@@ -5,6 +5,8 @@ import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class SignService {
 
@@ -23,6 +25,7 @@ public class SignService {
         }
     }
 
+    @Transactional
     public String signUp(String name, String pw, String tel) {
         User user;
         User username = userRepository.findUserByName(name);

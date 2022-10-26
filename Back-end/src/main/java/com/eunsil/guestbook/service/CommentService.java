@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    @Transactional
     public String insert(String card_id, String name, String content) {
         Card card = cardRepository.findById(card_id); // 댓글 작성한 카드
         User user = userRepository.findUserByName(name);
@@ -45,6 +47,7 @@ public class CommentService {
         return "ok";
     }
 
+    @Transactional
     public String delete(String comment_id) {
         commentRepository.deleteById(comment_id);
         return "ok";

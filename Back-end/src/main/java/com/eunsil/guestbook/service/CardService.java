@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class CardService {
         this.commentRepository = commentRepository;
     }
 
+    @Transactional
     public String insert(String name, String content) {
         User user = userRepository.findUserByName(name);
 
@@ -42,6 +44,7 @@ public class CardService {
         return "ok";
     }
 
+    @Transactional
     public String update(String card_id, String content) {
         Card card = cardRepository.findById(card_id);
         if (card != null) {
@@ -53,6 +56,7 @@ public class CardService {
         }
     }
 
+    @Transactional
     public String delete(String cardId) {
         commentRepository.deleteAllByCardId(Long.parseLong(cardId)); // 카드에 달린 댓글 삭제
         Card card = cardRepository.findById(cardId); // 카드 삭제
