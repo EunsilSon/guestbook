@@ -78,7 +78,7 @@ article {
 }
 
 #announce p {
-  font-size: 14px;
+  font-size: 18px;
   color: gray;
   margin-left: 10px;
 }
@@ -147,6 +147,7 @@ article {
 .page img {
   height: 20px;
   margin: 0px 20px 0px 20px;
+  cursor: pointer;
 }
 
 .search {
