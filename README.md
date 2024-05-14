@@ -1,15 +1,14 @@
-# GUEST BOOK
 [토이프로젝트: 게스트북 회고록](https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D) 에서 프로젝트 회고를 볼 수 있습니다.
-
-
-## 프로젝트 설명
-게스트 북은 여러 명의 사용자가 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
-
-실제 운영이 가능한 서비스가 아니며, [손은실](https://github.com/EunsilSon)을 제외한 모든 사용자들은 카드 CRUD 기능을 사용할 수 있습니다.
 
 <br>
 
-## 기능
+# Guest Book
+게스트북은 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
+실제 운영이 가능한 서비스가 아니며, 사용자들은 로그인 후 카드 CRUD 기능을 사용할 수 있습니다.
+
+<br>
+
+# 기능
 - **사용자**
   - 로그인, 회원가입, ID 찾기, PW 찾기
   - 모든 카드 보기
@@ -26,7 +25,7 @@
 
 <br>
 
-## 사용 기술
+# 사용 기술
 
 + Server
   - AWS EC2 (Ubuntu 20.04)
@@ -46,12 +45,12 @@
 
 <br>
 
-## 테이블 구조
+# 테이블 구조
 <img width="100%" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
 
 <br>
 
-## 이슈와 해결
+# 이슈와 해결
 * [[CORS] Cors Policy로 인한 서버의 요청 거부](https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios)
 * [[JPA] JPQL로 생성한 Delete 메서드 오류](https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets)
 * [[JPA] save(), saveAll(), saveAndFlush() 차이](https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4)
@@ -61,7 +60,7 @@
 
 <br>
 
-##  시연
+#  시연
 - 회원가입
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155180-7169b129-3fb3-48e7-96c8-245622f51fc0.gif" />
