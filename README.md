@@ -1,52 +1,67 @@
 # GUEST BOOK
-['게스트북' 개발 회고록](https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D)
+[토이프로젝트: 게스트북 회고록](https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D) 에서 프로젝트 회고를 볼 수 있습니다.
+
+
+## 프로젝트 설명
+게스트 북은 여러 명의 사용자가 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
+
+실제 운영이 가능한 서비스가 아니며, [손은실](https://github.com/EunsilSon)을 제외한 모든 사용자들은 카드 CRUD 기능을 사용할 수 있습니다.
 
 <br>
 
-## 1. 프로젝트 개요
+## 기능
+- **사용자**
+  - 로그인, 회원가입, ID 찾기, PW 찾기
+  - 모든 카드 보기
+  - 내가 쓴 카드 보기
+  - 카드 작성
+  - 카드 수정 (자신이 쓴 것만)
+  - 카드 삭제 (자신이 쓴 것만)
+  - 아이디 및 내용으로 카드 검색
+  - 댓글 작성
+  - 댓글 삭제 (자신이 쓴 것만)  
+
+- **관리자**
+  -  작성된 카드의 확인 유무 (사이트 상단 오른쪽)
+
 <br>
-<p>졸업작품 프로젝트에 사용했던 기술들 중 직접 사용해 보지 않아 궁금했던 것들을 직접 사용해 보기 위해 수행하는 토이 프로젝트입니다.</p>
-<p>직접 만든 웹 사이트로 지인들과 소통할 수 있는 창구를 만들고 싶었습니다.</p>
-<br><br>
 
-## 2. 프로젝트 설명
-<br>
-<p><b>게스트 북</b>은 여러 명의 사용자가 관리자에게 메시지를 남길 수 있는 <u>방명록 웹 사이트</u>입니다.</p>
-<br><br>
+## 사용 기술
 
-## 3. 사용 기술
-
-+ Server  
-<b>AWS의 EC2</b>(Ubuntu 20.04)와 <b>RDS</b>(MariaDB 10.5)를 사용합니다.
-
-<br>
++ Server
+  - AWS EC2 (Ubuntu 20.04)
+  - AWS RDS (MariaDB 10.5)
+  - Docker
+  - Tomcat
 
 + Front-end  
-<b>HTML, CSS, Vanila JS, Axios(HTTP 통신 라이브러리)</b>를 사용합니다.
+  - HTML / CSS
+  - Vanila JS
+  - Axios (HTTP 비동기 통신 라이브러리)
+
+
++ Back-end  
+  - Spring Boot 2.7.1
+  - JPA (Hibernate)
 
 <br>
 
-+ Back-end  
-Java 기반의 웹 프레임워크 <b>Spring Boot 2.7.1과 JPA(Hibernate)</b>를 사용합니다.
+## 테이블 구조
+<img width="100%" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
 
-<br><br>
+<br>
 
-## 4. 테이블 구조*
-<img width="399" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
-
-<br><br>
-
-## 5. 이슈와 해결
-* [Cors Policy로 인한 서버의 요청 거부](https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios)
-* [[JPA] DELETE Query 에러 : Statement.executeQuery()](https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets)
+## 이슈와 해결
+* [[CORS] Cors Policy로 인한 서버의 요청 거부](https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios)
+* [[JPA] JPQL로 생성한 Delete 메서드 오류](https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets)
 * [[JPA] save(), saveAll(), saveAndFlush() 차이](https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4)
 * [[Axios] Response.data 출력하기](https://velog.io/@eunsilson/Axios-Response.data-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0)
-* [[Axios] HTTP GET 요청 (feat. data를 담을 수 없다)](https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD)
-* [[Docker] Docker Hub push 실패 : requested access to the resource is denied](https://velog.io/@eunsilson/Docker-Docker-Hub-push-%EC%8B%A4%ED%8C%A8-requested-access-to-the-resource-is-denied)
+* [[Axios] HTTP GET 요청](https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD)
+* [[Docker] Docker Hub push 실패](https://velog.io/@eunsilson/Docker-Docker-Hub-push-%EC%8B%A4%ED%8C%A8-requested-access-to-the-resource-is-denied)
 
-<br><br>
+<br>
 
-##  모습
+##  시연
 - 회원가입
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155180-7169b129-3fb3-48e7-96c8-245622f51fc0.gif" />
