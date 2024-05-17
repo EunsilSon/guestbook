@@ -2,53 +2,61 @@
 
 <br>
 
-# Guest Book
+# Guest Book 📓
 게스트북은 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
-실제 운영이 가능한 서비스가 아니며, 사용자들은 로그인 후 카드 CRUD 기능을 사용할 수 있습니다.
+사용자들은 로그인 후 손은실의 게스트북을 사용할 수 있습니다.
 
-<br>
+<br><br>
 
 # 기능
+- **공통**
+  - 카드 현황 (전체, 확인 완료, 확인 전)
+  
 - **사용자**
   - 로그인, 회원가입, ID 찾기, PW 찾기
-  - 모든 카드 보기
-  - 내가 쓴 카드 보기
+      - `LocalStorage` 에 로그인한 사용자의 아이디 저장
+  - 모든 카드 조회
+  - 내가 쓴 카드 조회
+  - 아이디 및 내용으로 카드 검색
+      - `Paging` 기능을 통해 필요한 만큼의 데이터만 조회
   - 카드 작성
   - 카드 수정 (자신이 쓴 것만)
   - 카드 삭제 (자신이 쓴 것만)
-  - 아이디 및 내용으로 카드 검색
   - 댓글 작성
   - 댓글 삭제 (자신이 쓴 것만)  
 
 - **관리자**
-  -  작성된 카드의 확인 유무 (사이트 상단 오른쪽)
+  -  카드 상태 변경 (사이트 상단 오른쪽)
 
-<br>
+<br><br>
 
 # 사용 기술
 
-+ Server
+### Server
   - AWS EC2 (Ubuntu 20.04)
   - AWS RDS (MariaDB 10.5)
   - Docker
   - Tomcat
 
-+ Front-end  
+### Front-end  
   - HTML / CSS
   - Vanila JS
   - Axios (HTTP 비동기 통신 라이브러리)
 
 
-+ Back-end  
+### Back-end  
   - Spring Boot 2.7.1
+      - `MVC` 패턴
+      - `REST API` 개발
+      - `CORS` 처리
   - JPA (Hibernate)
 
-<br>
+<br><br>
 
 # 테이블 구조
-<img width="100%" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
+<img width="70%" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
 
-<br>
+<br><br>
 
 # 이슈와 해결
 * [[CORS] Cors Policy로 인한 서버의 요청 거부](https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios)
@@ -58,7 +66,7 @@
 * [[Axios] HTTP GET 요청](https://velog.io/@eunsilson/Axios-Get-Post-%EC%9A%94%EC%B2%AD)
 * [[Docker] Docker Hub push 실패](https://velog.io/@eunsilson/Docker-Docker-Hub-push-%EC%8B%A4%ED%8C%A8-requested-access-to-the-resource-is-denied)
 
-<br>
+<br><br>
 
 #  시연
 - 회원가입
