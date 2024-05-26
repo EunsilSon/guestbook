@@ -7,7 +7,6 @@ import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.CardRepository;
 import com.eunsil.guestbook.repository.CommentRepository;
 import com.eunsil.guestbook.repository.UserRepository;
-import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,9 +31,16 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    /**
+     * 새 댓글 생성
+     * @param cardId 카드 ID
+     * @param name 사용자 ID
+     * @param content 댓글 내용
+     * @return 생성 성공 여부
+     */
     @Transactional
-    public String insert(String card_id, String name, String content) {
-        Card card = cardRepository.findById(card_id); // 댓글 작성한 카드
+    public String insert(String cardId, String name, String content) {
+        Card card = cardRepository.findAllById(Long.valueOf(cardId));
         User user = userRepository.findUserByName(name);
 
         Comment comment = Comment.builder()
@@ -43,20 +49,31 @@ public class CommentService {
                 .content(content)
                 .postDate(LocalDate.now())
                 .build();
-        commentRepository.saveAndFlush(comment);
+        commentRepository.save(comment);
         return "ok";
     }
 
+    /**
+     * 댓글 삭제
+     * @param commentId 댓글 ID
+     * @return 삭제 성공 여부
+     */
     @Transactional
-    public String delete(String comment_id) {
-        commentRepository.deleteById(comment_id);
+    public String delete(String commentId) {
+        commentRepository.deleteById(Long.valueOf(commentId));
         return "ok";
     }
 
-    public List<CommentDTO> get(String cardId, Integer page) {
+    /**
+     * 댓글 조회
+     * @param page 가져 올 페이지 (5개로 제한)
+     * @param cardId 가져올 댓글의 카드 ID
+     * @return 댓글 리스트
+     */
+    public List<CommentDTO> get(Integer page, String cardId) {
         Pageable pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "id");
 
-        Card card = cardRepository.findById(cardId);
+        Card card = cardRepository.findAllById(Long.valueOf(cardId));
         List<Comment> commentList = commentRepository.findByCardOrderByIdDesc(card, pageable);
         List<CommentDTO> commentDtoList = new ArrayList<>();
 
@@ -72,8 +89,12 @@ public class CommentService {
         return commentDtoList;
     }
 
-    public int getCommentTotal(String cardId) {
-        List<Comment> comments = commentRepository.findAllByCardId(cardId);
-        return comments.size();
+    /**
+     * 댓글 개수 조회
+     * @param cardId 가져올 댓글의 카드 ID
+     * @return 댓글 개수
+     */
+    public long get(String cardId) {
+        return commentRepository.countByCardId(Long.valueOf(cardId));
     }
 }
