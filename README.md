@@ -1,64 +1,91 @@
-[토이프로젝트: 게스트북 회고록](https://velog.io/@eunsilson/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B2%8C%EC%8A%A4%ED%8A%B8%EB%B6%81-%ED%9A%8C%EA%B3%A0%EB%A1%9D) 에서 프로젝트 회고를 볼 수 있습니다.
-
-<br>
-
 # Guest Book 📓
+<div style="text-align: center;">
+    <div style="display: inline-block;">
+        <img src="https://github.com/EunsilSon/guestbook/assets/46162801/7fda4c76-d047-4151-b9ac-1fb954663a68" style="width: 80%;" />
+    </div>
+</div>
+
+<br><br>
+
+## 목차
+1. [프로젝트 소개](#프로젝트-소개)
+2. [2024 업그레이드 목록](#2024-업그레이드-목록)
+3. [기능 명세](#기능-명세)
+4. [기술 스택](#기술-스택)
+5. [테이블 구조](#테이블-구조)
+6. [이슈와 해결](#이슈와-해결)
+7. [실행 화면](#실행-화면)
+
+<br><br>
+
+## 프로젝트 소개
 게스트북은 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
-사용자들은 로그인 후 손은실의 게스트북을 사용할 수 있습니다.
+사용자들은 로그인 후 손은실의 게스트북을 사용할 수 있습니다.  
+개발자로서의 진로를 확정하기 위해 혼자 제작한 웹이며, 현재 리팩토링 및 추가 개발 중입니다. (2024. 05. 28)  
+앞으로 변경된 사항들이 `업그레이드 목록`에 기재되고, 개발 과정과 트러블슈팅 관련 내용은 저의 🔗기술 블로그에 업로드됩니다.
 
 <br><br>
 
-# 기능
-- **공통**
-  - 카드 현황 (전체, 확인 완료, 확인 전)
-  
-- **사용자**
-  - 로그인, 회원가입, ID 찾기, PW 찾기
-      - `LocalStorage` 에 로그인한 사용자의 아이디 저장
-  - 모든 카드 조회
-  - 내가 쓴 카드 조회
-  - 아이디 및 내용으로 카드 검색
-      - `Paging` 기능을 통해 필요한 만큼의 데이터만 조회
-  - 카드 작성
-  - 카드 수정 (자신이 쓴 것만)
-  - 카드 삭제 (자신이 쓴 것만)
-  - 댓글 작성
-  - 댓글 삭제 (자신이 쓴 것만)  
+## 2024 업그레이드 목록
+### 개발 환경
+1. [Spring Boot 2.7.1 → 3.2.5 마이그레이션](https://velog.io/@eunsilson/Spring-Boot-3-2-5-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
 
-- **관리자**
-  -  카드 상태 변경 (사이트 상단 오른쪽)
+### 로직
+  1. [회원가입] **데이터베이스 레벨에서 중복 값 체크**
+      - 기존에 DB에서 데이터를 가져와 비교하는 로직 제거
+      - 중복 값을 허용하지 않는 필드의 멤버 변수에 `@UniqueConstraint` 주입
+      - 보안성 증가
+  2. [회원가입 / id / pw 찾기] `existsBy` 메서드를 사용해 **NullPointerException 발생 가능성 감소**
+        - 기존에 find 메서드로 객체를 찾아 null과 비교하는 로직을 제거해 가독성 증가
 
 <br><br>
 
-# 사용 기술
-
-### Server
-  - AWS EC2 (Ubuntu 20.04)
-  - AWS RDS (MariaDB 10.5)
-  - Docker
-  - Tomcat
-
-### Front-end  
-  - HTML / CSS
-  - Vanila JS
-  - Axios (HTTP 비동기 통신 라이브러리)
-
-
-### Back-end  
-  - Spring Boot 2.7.1
-      - `MVC` 패턴
-      - `REST API` 개발
-      - `CORS` 처리
-  - JPA (Hibernate)
+## 기능 명세
+| 구분     | 기능                               |  설명                                               |
+|----------|------------------------------------|---------------------------------------------------------|
+| 공통     | 카드 현황 (전체, 확인 완료, 확인 전) |                  |
+| 사용자  | 로그인                              | 사용자의 아이디를 LocalStorage에 저장                               |
+|          | 회원가입                           | 독립된 DB 서버에 사용자 정보 저장                                   |
+|          | ID 찾기                            |                                            |
+|          | PW 찾기                            |                                     |
+|          | 모든 카드 조회                     | Paging 기능을 이용해 필요한 만큼의 데이터만 조회                                    |
+|          | 내가 쓴 카드 조회                  |                                |
+|          | 아이디 및 내용으로 카드 검색       |                |
+|          | 카드 작성                          | 공개 및 비공개 설정 가능                                       |
+|          | 카드 수정         | 자신이 작성한 카드만 수정 가능                             |
+|          | 카드 삭제          | 자신이 작성한 카드만 삭제 가능                              |
+|          | 댓글 작성                          |                                             |
+|          | 댓글 삭제          | 자신이 작성한 댓글만 삭제 가능                           |
+| 관리자  | 카드 상태 변경 | 카드 클릭하면 자동 변경                       |
 
 <br><br>
 
-# 테이블 구조
-<img width="70%" alt="guest-book-db-table" src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png">
+## 기술 스택
+
+| 구분       | 기술                         | 설명                           |
+|------------|------------------------------|-------------------------------------|
+| Back-end   | Spring Boot 3.2.5            | MVC 패턴의 REST API 서버                                    |
+|            | Spring Data JPA             |                                     |
+| Server     | AWS EC2 (Ubuntu 20.04)       |                                     |
+|            | AWS RDS (MariaDB 10.5)       |                                     |
+|            | Docker                       |                                     |
+|            | Tomcat                       |                                     |
+| Front-end  | HTML/CSS                   |                                     |
+|            | Vanila JS                    |                                     |
+|            | Axios                        | HTTP 비동기 통신 라이브러리         |
+
 
 <br><br>
 
-# 이슈와 해결
+## 테이블 구조
+<div style="text-align: center;">
+    <img src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png" style="display: block; margin: 0 auto; width: 50%;" />
+</div>
+
+
+<br><br>
+
+## 이슈와 해결
 * [[CORS] Cors Policy로 인한 서버의 요청 거부](https://velog.io/@eunsilson/%EB%98%90-%EB%82%98%ED%83%80%EB%82%9C-Cors-Policy-feat.-Springboot-Axios)
 * [[JPA] JPQL로 생성한 Delete 메서드 오류](https://velog.io/@eunsilson/JPA-Statement.executeQuery-cannot-issue-statements-that-do-not-produce-result-sets)
 * [[JPA] save(), saveAll(), saveAndFlush() 차이](https://velog.io/@eunsilson/JPA-save-saveAll-saveAndFlush-%EC%B0%A8%EC%9D%B4)
@@ -68,70 +95,48 @@
 
 <br><br>
 
-#  시연
+## 실행 화면
 - 회원가입
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155180-7169b129-3fb3-48e7-96c8-245622f51fc0.gif" />
-
-<br>
 
 - ID 찾기
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155451-8ad17181-e563-4ab8-8405-04e5c49f4f29.gif" />
 
-<br>
-
 - PW 찾기
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155480-074832a0-4fa9-4660-a921-eb049edbba22.gif" />
 
-<br>
-
 - 로그인
   - 입력 값 검증
 <img src="https://user-images.githubusercontent.com/46162801/199155501-a2d56898-e5ea-46b6-998d-24a18b8662a4.gif" />
-
-<br>
 
 - 카드 작성
   - 글자 수 제한
   - 글자 수 넘침 처리
 <img src="https://user-images.githubusercontent.com/46162801/199157711-9869989d-56bb-453b-8bae-ffb33bf8b760.gif" />
 
-<br>
-
 - 카드 수정, 삭제
 <img src="https://user-images.githubusercontent.com/46162801/199155547-4e167a23-9312-4faa-a5aa-01f58123f817.gif" />
-
-<br>
 
 - 댓글 작성
 <img src="https://user-images.githubusercontent.com/46162801/199155568-60165ce6-1360-4f6c-bdaa-6b3637c6e8dd.gif" />
 
-<br>
-
 - 댓글 삭제
 <img src="https://user-images.githubusercontent.com/46162801/199155617-3feae30a-5b56-4226-bb6d-845638d01863.gif" />
 
-<br>
-
 - 댓글 더보기 버튼
 <img src="https://user-images.githubusercontent.com/46162801/199155651-8577e1ef-46f0-4581-a356-ecc33ce3a0c0.gif" />
-
-<br>
 
 - '모든 카드' 메뉴에서 카드 검색
   - '이름'과 '내용'으로 카드 검색
   - 일치하는 카드가 없는 경우 알림창을 띄움
 <img src="https://user-images.githubusercontent.com/46162801/199155677-aa6c5ddd-d4e0-4963-b04d-71bfac4f56e3.gif" />
 
-<br>
-
 - '내가 쓴 카드' 메뉴에서 카드 검색
   - '내용'으로 카드를 검색
 <img src="https://user-images.githubusercontent.com/46162801/199155691-9e52bee8-c30b-4e0a-85cc-72716099b6ae.gif" />
-
-<br>
 
 - 카드의 상태 변경
   - 관리자의 계정으로 접속 후 방문자들의 카드를 클릭하면 카드 상태가 '확인 완료'로 변경됨
