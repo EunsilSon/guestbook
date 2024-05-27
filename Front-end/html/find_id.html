@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Eunsil's GuestBook</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
@@ -10,17 +9,18 @@
     <link rel="icon" href="../img/favicon.png">
   </head>
   <body>
-    <header class="book_title" onclick='location.href="sign_in.html"'>
-      FIND ID
-    </header>
-    <article class="main_box">
-      <section class="info">
-        <form id="form" method="" action="sign_in.html" onsubmit="return false">
+    <div class="main_box">
+      <header class="book_title" onclick='location.href="sign_in.html"'>
+        Find ID
+      </header>
+      <form id="form" method="" action="sign_in.html" onsubmit="return false">
+        <section class="info">
           <input id="user_tel" type="tel" placeholder="Phone Number">
-          <button id="find_id" type="button" onClick="findId();">COMPLETE</button>
-        </form>
-      </section>
-    </article>
+          <button class="info_btn" id="info_btn" type="button" onClick="findId();">Complete</button>
+          <button class="back_btn" id="back" type="button" onClick="location.href='sign_in.html'">Back</button>
+        </section>
+      </form>
+    </div>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/sign.js"></script>

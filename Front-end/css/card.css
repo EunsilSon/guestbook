@@ -6,7 +6,7 @@ body {
 #card_count {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   list-style: none;
 }
 
@@ -37,9 +37,8 @@ body {
   height: 300px;
   margin-bottom: 20px;
   padding: 15px 30px 15px 30px;
-  border: 0.5px solid lightgray;
-  border-radius: 3px;
-  box-shadow: 1px 1px 2px grey;
+  border: 3px solid #44546A;
+  border-radius: 5px;
   background-color: white;
 }
 
@@ -117,7 +116,7 @@ textarea:focus {
   height: 200px;
   padding: 20px 30px 50px 30px;
   font-size: 16px;
-  border: 0.5px solid #44546A;
+  border: 3px solid #44546A;
   background-color: white;
   resize: none;
 }

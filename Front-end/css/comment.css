@@ -54,7 +54,7 @@
   padding: 10px 80px 10px 30px;
   font-size: 15px;
   resize: none;
-  border: 0.5px solid lightgray;
+  border: 1px solid #44546A;
   background-color: white;
 }
 
@@ -79,11 +79,12 @@
 
 #comment_page_btn {
   width: 100px;
-  padding: 5px;
+  height: 35px;
   border-radius: 5px;
+  border: 0px;
   background-color: #44546A;
   color: #fafafa;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
 }

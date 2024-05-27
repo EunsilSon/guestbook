@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Eunsil's GuestBook</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
@@ -12,10 +11,7 @@
     <link rel="icon" href="../img/favicon.png">
   </head>
   <body onload = "loadDetailPage();">
-    <header class="book_title" onclick='location.href="all_cards.html"'>
-      GUEST BOOK
-    </header>
-
+    
     <article class="main_box">
       <section id="card_detail" class="card_detail">
         <div id="card_info" class="card_info">
@@ -30,9 +26,7 @@
       <section id="comment_list" class="comment_list">
       </section>
 
-      <section id="comment_page_btn" class="page" onclick="getCommentList();">
-        댓글 더보기
-      </section>
+      <button id="comment_page_btn" onclick="getCommentList();">댓글 더보기</button>
 
       <footer class="back" onclick="goBack();">
         <img src="../img/return.png">

@@ -1,3 +1,7 @@
+/**
+ *  로그인 관련
+ */
+
 const form = document.getElementById('form');
 let userName = document.getElementById('user_name');
 let userPw = document.getElementById('user_pw');
@@ -61,7 +65,7 @@ function signIn() {
   if (isRight) {
     axios({
       method: 'post', //통신 방식
-      url: 'http://54.180.95.53:8000/sign_in',
+      url: 'http://127.0.0.1:8000/sign_in',
       data: {
         "username": userName.value,
         "password": userPw.value
@@ -98,7 +102,7 @@ function signUp() {
 
     axios({
       method: 'post', //통신 방식
-      url: 'http://54.180.95.53:8000/sign_up',
+      url: 'http://127.0.0.1:8000/sign_up',
       data: {
         "username": userName.value,
         "password": userPw.value,
@@ -138,7 +142,7 @@ function findId() {
   if (isRight) {
     axios({
       method: 'get', //통신 방식
-      url: 'http://54.180.95.53:8000/id',
+      url: 'http://127.0.0.1:8000/id',
       params: {
         "tel": userTel.value
       }
@@ -170,7 +174,7 @@ function findPw() {
 
     axios({
       method: 'get', //통신 방식
-      url: 'http://54.180.95.53:8000/pw',
+      url: 'http://127.0.0.1:8000/pw',
       params: {
         "name": userName.value,
         "tel" : userTel.value

@@ -51,12 +51,13 @@ article {
 
 .user_profile {
   display: flex;
-  justify-content: center
+  width: 600px;
+  justify-content: center;
+  align-items: center;
 }
 
 .user_profile img {
-  height: 150px;
-  margin-top: 10px;
+  height: 100px;
 }
 
 .user_profile_info {
@@ -67,7 +68,7 @@ article {
 #user_name {
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 #announce {
@@ -93,7 +94,7 @@ article {
 }
 
 .sign_btn button {
-  width: 630px;
+  width: 600px;
   height: 50px;
   margin: 30px 0px 30px 0px;
   border: 0px;
@@ -111,12 +112,12 @@ article {
 }
 
 .book_btn_focus {
-  width: 190px;
+  width: 180px;
   height: 50px;
   margin: 30px 5px 30px 5px;
   border-radius: 5px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border: 2px solid #44546A;
   background-color: #44546A;
   color: white;
@@ -124,12 +125,12 @@ article {
 }
 
 .book_btn {
-  width: 190px;
+  width: 180px;
   height: 50px;
   margin: 30px 5px 30px 5px;
   border-radius: 5px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border: 2px solid #44546A;
   background-color: #FFFAEB;
   color: #44546A;
@@ -158,26 +159,28 @@ article {
 
 .search input {
   width: 400px;
-  height: 27px;
+  height: 35px;
   text-align: center;
-  border: 0.5px solid gray;
+  border: 1px solid gray;
   border-radius: 3px;
   background-color: #fafafa;
+  font-size: 16px;
 }
 
 .search img{
   height: 20px;
   position: relative;
-  top: 4px;
-  right: 33px;
+  top: 8px;
+  right: 35px;
 }
 
-.search_option {
+.search select {
   color: gray;
-  border: 0.5px solid #44546A;
+  border: 1px solid gray;
   border-radius: 3px;
   background-color: #fafafa;
-  margin-right: 3px;
+  margin-right: 5px;
+  font-size: 16px;
 }
 
 #search_btn {
@@ -197,7 +200,7 @@ article {
   background-color: #44546A;
   color: #fafafa;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
 }
 
