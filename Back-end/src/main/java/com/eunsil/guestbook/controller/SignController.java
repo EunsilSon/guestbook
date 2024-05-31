@@ -21,7 +21,7 @@ public class SignController {
      * @param param 사용자 이름, 비밀번호
      * @return 로그인 성공 여부
      */
-    @PostMapping("/sign_in")
+    @PostMapping("/")
     public boolean signIn(@RequestBody HashMap<String, String> param) {
         return signService.signIn(param.get("username"), param.get("password"));
     }
@@ -31,7 +31,7 @@ public class SignController {
      * @param param 사용자 이름, 비밀번호, 연락처
      * @return 이름과 연락처 중복 값 체크 or 회원 가입 성공 여부
      */
-    @PostMapping("/sign_up")
+    @PostMapping("/signup")
     public String signUp(@RequestBody HashMap<String, String> param) {
         return signService.signUp(param.get("username"), param.get("password"), param.get("telephone"));
     }
