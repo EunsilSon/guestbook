@@ -1,22 +1,20 @@
+
 package com.eunsil.guestbook.service;
 
 import com.eunsil.guestbook.domain.entity.User;
 import com.eunsil.guestbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService (UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -27,11 +25,7 @@ public class UserService {
      * @return 로그인 성공 여부
      */
     public boolean signIn(String name, String pw) {
-        if (userRepository.existsByName(name)) { // 사용자 일치
-            User user = userRepository.findUserByName(name);
-            return bCryptPasswordEncoder.matches(pw, user.getPassword()); // 비밀번호 일치 여부
-        }
-        return false; // 사용자 불일치
+        return userRepository.existsByNameAndPassword(name, pw);
     }
 
     /**
@@ -54,7 +48,7 @@ public class UserService {
 
         User user = User.builder()
                 .name(name)
-                .password(bCryptPasswordEncoder.encode(pw))
+                .password(pw)
                 .telephone(tel)
                 .build();
         userRepository.saveAndFlush(user);
