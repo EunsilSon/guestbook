@@ -21,7 +21,7 @@ public class UserController {
      * @param param 사용자 이름, 비밀번호
      * @return 로그인 성공 여부
      */
-    @PostMapping("/")
+    @PostMapping("/signin")
     public boolean signIn(@RequestBody HashMap<String, String> param) {
         return userService.signIn(param.get("username"), param.get("password"));
     }
