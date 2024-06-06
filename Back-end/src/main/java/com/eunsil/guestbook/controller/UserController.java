@@ -1,6 +1,6 @@
 package com.eunsil.guestbook.controller;
 
-import com.eunsil.guestbook.service.SignService;
+import com.eunsil.guestbook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
-public class SignController {
-    private SignService signService;
+public class UserController {
+    private UserService userService;
 
     @Autowired
-    public SignController(SignService signService) {
-        this.signService = signService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -23,7 +23,7 @@ public class SignController {
      */
     @PostMapping("/")
     public boolean signIn(@RequestBody HashMap<String, String> param) {
-        return signService.signIn(param.get("username"), param.get("password"));
+        return userService.signIn(param.get("username"), param.get("password"));
     }
 
     /**
@@ -33,7 +33,7 @@ public class SignController {
      */
     @PostMapping("/signup")
     public String signUp(@RequestBody HashMap<String, String> param) {
-        return signService.signUp(param.get("username"), param.get("password"), param.get("telephone"));
+        return userService.signUp(param.get("username"), param.get("password"), param.get("telephone"));
     }
 
     /**
@@ -43,7 +43,7 @@ public class SignController {
      */
     @GetMapping("/id")
     public String findId(@RequestParam String tel) {
-        return signService.findId(tel);
+        return userService.findId(tel);
     }
 
     /**
@@ -53,7 +53,7 @@ public class SignController {
      */
     @PostMapping("/pw")
     public String findPw(@RequestBody HashMap<String, String> param) {
-        return signService.findPw(param.get("username"), param.get("telephone"));
+        return userService.findPw(param.get("username"), param.get("telephone"));
     }
 
     /**
@@ -63,6 +63,6 @@ public class SignController {
      */
     @GetMapping("/check")
     public boolean checkUser(@RequestParam String username) {
-        return signService.isAdmin(username);
+        return userService.isAdmin(username);
     }
 }
