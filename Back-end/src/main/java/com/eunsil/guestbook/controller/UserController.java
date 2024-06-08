@@ -23,7 +23,7 @@ public class UserController {
      */
     @PostMapping("/signin")
     public boolean signIn(@RequestBody HashMap<String, String> param) {
-        return userService.signIn(param.get("username"), param.get("password"));
+        return userService.signIn(param.get("name"), param.get("password"));
     }
 
     /**
@@ -33,17 +33,17 @@ public class UserController {
      */
     @PostMapping("/signup")
     public String signUp(@RequestBody HashMap<String, String> param) {
-        return userService.signUp(param.get("username"), param.get("password"), param.get("telephone"));
+        return userService.signUp(param.get("name"), param.get("password"), param.get("telephone"));
     }
 
     /**
      * ID 찾기
-     * @param tel 연락처
+     * @param param 연락처
      * @return 찾은 ID or ID 찾기 성공 여부
      */
-    @GetMapping("/id")
-    public String findId(@RequestParam String tel) {
-        return userService.findId(tel);
+    @PostMapping("/id")
+    public String findId(@RequestBody HashMap<String, String> param) {
+        return userService.findId(param.get("telephone"));
     }
 
     /**
@@ -53,7 +53,7 @@ public class UserController {
      */
     @PostMapping("/pw")
     public String findPw(@RequestBody HashMap<String, String> param) {
-        return userService.findPw(param.get("username"), param.get("telephone"));
+        return userService.findPw(param.get("name"), param.get("telephone"));
     }
 
     /**

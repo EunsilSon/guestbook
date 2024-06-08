@@ -64,10 +64,10 @@ function signIn() {
 
   if (isRight) {
     axios({
-      method: 'post', //통신 방식
+      method: 'post',
       url: 'http://127.0.0.1:8000/signin',
       data: {
-        "username": userName.value,
+        "name": userName.value,
         "password": userPw.value
       }
     }, { withCredentials : true })
@@ -101,10 +101,10 @@ function signUp() {
   if (isRight) {
 
     axios({
-      method: 'post', //통신 방식
+      method: 'post',
       url: 'http://127.0.0.1:8000/signup',
       data: {
-        "username": userName.value,
+        "name": userName.value,
         "password": userPw.value,
         "telephone": userTel.value
       }
@@ -135,17 +135,18 @@ function signUp() {
   }
 }
 
-// id 찾기 (completed)
+// id 찾기
 function findId() {
   isRight = checkTel(userTel.value);
 
   if (isRight) {
     axios({
-      method: 'get', //통신 방식
+      method: 'post',
       url: 'http://127.0.0.1:8000/id',
-      params: {
-        "tel": userTel.value
+      data: {
+        "telephone": userTel.value
       }
+      
     }, { withCredentials : true })
       .then((Response)=>{
         if (Response.data == "fail") {
@@ -173,11 +174,11 @@ function findPw() {
   if (isRight) {
 
     axios({
-      method: 'get', //통신 방식
+      method: 'post',
       url: 'http://127.0.0.1:8000/pw',
-      params: {
+      data: {
         "name": userName.value,
-        "tel" : userTel.value
+        "telephone" : userTel.value
       }
     }, { withCredentials : true })
       .then((Response)=>{

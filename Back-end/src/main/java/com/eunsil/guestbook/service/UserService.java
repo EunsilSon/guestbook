@@ -21,35 +21,35 @@ public class UserService {
     /**
      * 로그인
      * @param name 사용자 이름
-     * @param pw 비밀번호
+     * @param password 비밀번호
      * @return 로그인 성공 여부
      */
-    public boolean signIn(String name, String pw) {
-        return userRepository.existsByNameAndPassword(name, pw);
+    public boolean signIn(String name, String password) {
+        return userRepository.existsByNameAndPassword(name, password);
     }
 
     /**
      * 회원 가입
      * @param name 사용자 이름
-     * @param pw 비밀번호
-     * @param tel 연락처
+     * @param password 비밀번호
+     * @param telephone 연락처
      * @return 이름과 비밀번호 중복 값 체크 or 성공 여부
      */
     @Transactional
-    public String signUp(String name, String pw, String tel) {
+    public String signUp(String name, String password, String telephone) {
 
         if (userRepository.existsByName(name)) {
             return "Existed Username";
         }
 
-        if (userRepository.existsByTelephone(tel)) {
+        if (userRepository.existsByTelephone(telephone)) {
             return "Existed telephone";
         }
 
         User user = User.builder()
                 .name(name)
-                .password(pw)
-                .telephone(tel)
+                .password(password)
+                .telephone(telephone)
                 .build();
         userRepository.saveAndFlush(user);
         return "ok";
@@ -57,12 +57,12 @@ public class UserService {
 
     /**
      * ID 찾기
-     * @param tel 연락처
+     * @param telephone 연락처
      * @return 찾은 ID or 성공 여부
      */
-    public String findId(String tel) {
-        if (userRepository.existsByTelephone(tel)) {
-            User user = userRepository.findUserByTelephone(tel);
+    public String findId(String telephone) {
+        if (userRepository.existsByTelephone(telephone)) {
+            User user = userRepository.findByTelephone(telephone);
             return user.getName();
         } else {
             return "fail";
@@ -72,12 +72,12 @@ public class UserService {
     /**
      * PW 찾기
      * @param name 사용자 이름
-     * @param tel 연락처
+     * @param telephone 연락처
      * @return 찾은 PW or 성공 여부
      */
-    public String findPw(String name, String tel) {
-        if (userRepository.existsByNameAndTelephone(name, tel)) {
-            User user = userRepository.findPasswordByNameAndTelephone(name, tel);
+    public String findPw(String name, String telephone) {
+        if (userRepository.existsByNameAndTelephone(name, telephone)) {
+            User user = userRepository.findPasswordByNameAndTelephone(name, telephone);
             return user.getPassword();
         } else {
             return "fail";
