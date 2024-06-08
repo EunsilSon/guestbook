@@ -37,7 +37,7 @@
 <br>
 
 3. [회원가입 / id / pw 찾기] `existsBy` 메서드를 사용해 **NullPointerException 발생 가능성 감소**
-    - 기존에 find 메서드로 객체를 찾아 null과 비교하는 로직을 제거해 가독성 증가
+    - 기존에 find 메서드로 객체를 찾아 null과 비교하는 로직 제거
 
 <br>
 
@@ -110,19 +110,23 @@
 ## 실행 화면
 - 회원가입
   - 입력 값 검증
-<img src="https://user-images.githubusercontent.com/46162801/199155180-7169b129-3fb3-48e7-96c8-245622f51fc0.gif" />
 
-- ID 찾기
-  - 입력 값 검증
-<img src="https://user-images.githubusercontent.com/46162801/199155451-8ad17181-e563-4ab8-8405-04e5c49f4f29.gif" />
-
-- PW 찾기
-  - 입력 값 검증
-<img src="https://user-images.githubusercontent.com/46162801/199155480-074832a0-4fa9-4660-a921-eb049edbba22.gif" />
+<img src="https://github.com/EunsilSon/guestbook/assets/46162801/1aae4c14-e911-4c65-a3b6-2a846b191d4a" />
 
 - 로그인
   - 입력 값 검증
-<img src="https://user-images.githubusercontent.com/46162801/199155501-a2d56898-e5ea-46b6-998d-24a18b8662a4.gif" />
+
+<img src="https://github.com/EunsilSon/guestbook/assets/46162801/4930f0e1-9b7e-4883-b274-2724f59c6e4d" />
+
+- ID 찾기
+  - 입력 값 검증
+
+<img src="https://github.com/EunsilSon/guestbook/assets/46162801/6aca0243-384b-4add-8827-0139193e7f72" />
+
+- PW 찾기
+  - 입력 값 검증
+
+<img src="https://github.com/EunsilSon/guestbook/assets/46162801/6efcfebd-b811-483d-bfa2-088b2962a31c" />
 
 - 카드 작성
   - 글자 수 제한
