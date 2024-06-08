@@ -510,7 +510,7 @@ function getMyCardList() {
   setSearchPageCount();
   axios({
     method: 'get',
-    url: 'http://127.0.0.1:8000/card/my',
+    url: 'http://127.0.0.1:8000/mycards',
     params: {
       "page":myPageCount,
       "username":username
@@ -544,7 +544,7 @@ function getMyCardList() {
     url: 'http://127.0.0.1:8000/comment',
     params: {
       "page":commentPageCount,
-      "cardId":cardId
+      "card_id":cardId
     }
   }, { withCredentials : true })
     .then((Response)=>{
@@ -632,7 +632,7 @@ function searchCard() {
             window.location.reload();                 
           })
     } else {
-      selectedOptionParam = (selectedOption === "username") ? selectedOptionParam = "username" : selectedOptionParam = "content";
+      selectedOptionParam = (selectedOption === "username") ? selectedOptionParam = 0 : selectedOptionParam = 1;
     }
     localStorage.setItem('selectedOptionParam', selectedOptionParam);
   }
@@ -678,12 +678,10 @@ function searchAllCards() {
 
   axios({
     method: 'get',
-    url: 'http://127.0.0.1:8000/card/search',
+    url: 'http://127.0.0.1:8000/cards/search',
     params: {
       "page":searchPageCount,
-      "location":"all",
       "option":localStorage.getItem('selectedOptionParam'), // 아이디 OR 내용
-      "username":username,
       "content":localStorage.getItem('searchContent')
     }
   }, { withCredentials : true })
@@ -725,11 +723,9 @@ function searchMyCards() {
 
   axios({
     method: 'get',
-    url: 'http://127.0.0.1:8000/card/search',
+    url: 'http://127.0.0.1:8000/mycards/search',
     params: {
       "page":searchPageCount,
-      "location":"user",
-      "option":"content",
       "username":username,
       "content":localStorage.getItem('searchContent')
     }

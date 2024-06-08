@@ -70,10 +70,10 @@ public class CommentService {
      * @param cardId 가져올 댓글의 카드 ID
      * @return 댓글 리스트
      */
-    public List<CommentDTO> get(Integer page, String cardId) {
+    public List<CommentDTO> get(Integer page, Long cardId) {
         Pageable pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "id");
 
-        Card card = cardRepository.findAllById(Long.valueOf(cardId));
+        Card card = cardRepository.findAllById((cardId));
         List<Comment> commentList = commentRepository.findByCardOrderByIdDesc(card, pageable);
         List<CommentDTO> commentDtoList = new ArrayList<>();
 

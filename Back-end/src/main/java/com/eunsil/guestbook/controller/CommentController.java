@@ -23,7 +23,7 @@ public class CommentController {
      * @param param 카드 ID, 사용자 ID, 댓글 내용
      * @return 생성 성공 여부
      */
-    @PostMapping
+    @PostMapping("/comment")
     public String insert(@RequestBody HashMap<String, String> param) {
         return commentService.insert(param.get("card_id"), param.get("name"), param.get("content"));
     }
@@ -45,7 +45,7 @@ public class CommentController {
      * @return 댓글 리스트
      */
     @GetMapping("/comment")
-    public List<CommentDTO> get(@RequestParam Integer page, @RequestParam("card_id") String cardId) {
+    public List<CommentDTO> get(@RequestParam Integer page, @RequestParam("card_id") Long cardId) {
         return commentService.get(page, cardId);
     }
 

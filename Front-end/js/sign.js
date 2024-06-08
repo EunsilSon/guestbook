@@ -65,14 +65,14 @@ function signIn() {
   if (isRight) {
     axios({
       method: 'post', //통신 방식
-      url: 'http://127.0.0.1:8000/sign_in',
+      url: 'http://127.0.0.1:8000/signin',
       data: {
         "username": userName.value,
         "password": userPw.value
       }
     }, { withCredentials : true })
       .then((Response)=>{
-        if (Response.data == "fail") {
+        if (Response.data == false) {
           swal('로그인 실패!',"아이디 및 비밀번호가 올바르지 않습니다.",'error')
           .then(function(){
             removeName();
@@ -102,7 +102,7 @@ function signUp() {
 
     axios({
       method: 'post', //통신 방식
-      url: 'http://127.0.0.1:8000/sign_up',
+      url: 'http://127.0.0.1:8000/signup',
       data: {
         "username": userName.value,
         "password": userPw.value,
