@@ -69,12 +69,11 @@
 
 | 구분       | 기술                         | 설명                           |
 |------------|------------------------------|-------------------------------------|
-| Back-end   | Spring Boot 3.2.5            | MVC 패턴의 REST API 서버                                    |
+| Back-end   | Spring Boot 3.2.5            | MVC 패턴의 REST API 서버 |
 |            | Spring Data JPA             |                                     |
 | Server     | AWS EC2 (Ubuntu 20.04)       |                                     |
 |            | AWS RDS (MariaDB 10.5)       |                                     |
 |            | Docker                       |                                     |
-|            | Tomcat                       |                                     |
 | Front-end  | HTML/CSS                   |                                     |
 |            | Vanila JS                    |                                     |
 |            | Axios                        | HTTP 비동기 통신 라이브러리         |
