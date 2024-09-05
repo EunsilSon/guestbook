@@ -10,7 +10,7 @@
 2. [2024 리팩토링](#2024-리팩토링)
 3. [기능 명세](#기능-명세)
 4. [기술 스택](#기술-스택)
-5. [테이블 구조](#테이블-구조)
+5. [ERD](#ERD)
 6. [이슈와 해결](#이슈와-해결)
 7. [실행 화면](#실행-화면)
 
@@ -81,10 +81,8 @@
 
 <br><br>
 
-## 테이블 구조
-<div style="text-align: center;">
-    <img src="https://user-images.githubusercontent.com/46162801/173296869-10d053a7-cfae-4fdc-a1b3-24b8e918acc4.png" style="display: block; margin: 0 auto; width: 50%;" />
-</div>
+## ERD
+<img width="60%" alt="guestbook_erd" src="https://github.com/user-attachments/assets/570cc4ea-29a3-47cc-893c-d2173d5fbf46">
 
 
 <br>
