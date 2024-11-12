@@ -1,10 +1,4 @@
 # Guest Book 📓
-<div style="text-align: center;">
-    <div style="display: inline-block;">
-        <img src="https://github.com/EunsilSon/guestbook/assets/46162801/7fda4c76-d047-4151-b9ac-1fb954663a68" style="width: 80%;" />
-    </div>
-</div>
-
 ## 목차
 1. [프로젝트 소개](#프로젝트-소개)
 2. [2024 리팩토링](#2024-리팩토링)
@@ -18,8 +12,16 @@
 
 ## 프로젝트 소개
 게스트북은 [손은실](https://github.com/EunsilSon)에게 메시지를 남길 수 있는 **방명록 웹 사이트**입니다.  
-   사용자들은 로그인 후 손은실의 게스트북을 사용할 수 있습니다.  
+사용자들은 로그인 후 손은실의 게스트북을 사용할 수 있습니다.  
 최근 변경된 사항들이 `리팩토링 목록`에 기재되어 있으며, 개발 과정과 트러블슈팅 관련 내용은 저의 🔗[기술 블로그](https://velog.io/@eunsilson/posts)에서 업로드되어 있습니다.
+
+<br>
+
+#### 아키텍처 구조
+<img width="80%" alt="architecture" src="https://github.com/user-attachments/assets/06f8009c-b3ce-46dc-a03f-af4f86700b9d">
+
+#### 웹 화면
+<img width="80%" alt="frontend" src="https://github.com/EunsilSon/guestbook/assets/46162801/7fda4c76-d047-4151-b9ac-1fb954663a68">
 
 <br>
 
