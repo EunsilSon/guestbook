@@ -1,4 +1,6 @@
 # Guest Book 📓
+<img width="80%" alt="frontend" src="https://github.com/EunsilSon/guestbook/assets/46162801/7fda4c76-d047-4151-b9ac-1fb954663a68">
+
 ## 목차
 1. [프로젝트 소개](#프로젝트-소개)
 2. [2024 리팩토링](#2024-리팩토링)
@@ -19,9 +21,6 @@
 
 #### 아키텍처 구조
 <img width="80%" alt="architecture" src="https://github.com/user-attachments/assets/06f8009c-b3ce-46dc-a03f-af4f86700b9d">
-
-#### 웹 화면
-<img width="80%" alt="frontend" src="https://github.com/EunsilSon/guestbook/assets/46162801/7fda4c76-d047-4151-b9ac-1fb954663a68">
 
 <br>
 
